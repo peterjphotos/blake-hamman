@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blake Hamman — Directing Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a; --deep: #111111; --charcoal: #1e1e1e;
+    --gold: #c9a84c; --gold-light: #e8c97e;
+    --cream: #f5f0e8; --warm-white: #faf8f4;
+    --muted: #888; --divider: rgba(201,168,76,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--cream); font-family: 'Montserrat', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.4; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent); }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.3em; color: var(--gold); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-links a.active { opacity: 1; color: var(--gold); }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--deep);
+  }
+  .page-header::before {
+    content: 'DIRECTING';
+    position: absolute;
+    left: -1rem; bottom: -2rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22vw;
+    color: rgba(201,168,76,0.04);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .breadcrumb { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+  .breadcrumb a { color: var(--gold); text-decoration: none; }
+  .breadcrumb span { margin: 0 0.8rem; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 7vw, 8rem); font-weight: 300; line-height: 0.9; color: var(--warm-white); margin-bottom: 1.5rem; }
+  .page-title em { font-style: italic; color: var(--gold-light); }
+  .page-intro { max-width: 560px; font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
+
+  /* ── PHILOSOPHY ── */
+  .philosophy { background: var(--charcoal); padding: 5rem 0; border-bottom: 1px solid var(--divider); }
+  .philosophy-inner { max-width: 1200px; margin: 0 auto; padding: 0 4rem; display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: center; }
+  .philosophy-label { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); }
+  .philosophy-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.5vw, 2rem); font-style: italic; font-weight: 300; line-height: 1.5; color: var(--warm-white); position: relative; padding-left: 2rem; }
+  .philosophy-quote::before { content: '"'; position: absolute; left: 0; top: -0.5rem; font-size: 4rem; color: var(--gold); opacity: 0.3; line-height: 1; font-style: normal; }
+
+  /* ── PRODUCTION CARDS ── */
+  .productions { max-width: 1200px; margin: 0 auto; padding: 0 4rem; }
+  .productions-header { padding: 5rem 0 3rem; }
+  .section-label { font-size: 0.6rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 0 0 40px; height: 1px; background: var(--gold); opacity: 0.4; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 300; line-height: 1.1; }
+  .section-title em { font-style: italic; color: var(--gold-light); }
+
+  .production { display: grid; grid-template-columns: 1fr 2fr; gap: 0; margin-bottom: 1px; background: var(--charcoal); border: 1px solid var(--divider); transition: border-color 0.2s; }
+  .production:hover { border-color: rgba(201,168,76,0.5); }
+  .production.featured { grid-template-columns: 1fr 1fr; background: var(--deep); border-color: var(--gold); }
+  .production.current { border-color: var(--gold-light); }
+
+  .prod-photo {
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .prod-photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: var(--muted);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .prod-photo-placeholder svg { opacity: 0.15; }
+  .prod-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%) contrast(1.05); transition: filter 0.3s, transform 0.5s; }
+  .production:hover .prod-photo img { filter: grayscale(0%); transform: scale(1.03); }
+
+  .prod-number {
+    position: absolute;
+    top: 1.5rem; left: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+  }
+
+  .prod-info { padding: 3rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .prod-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .prod-year { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+  .prod-tag { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.2rem 0.7rem; border: 1px solid var(--divider); color: var(--muted); }
+  .prod-tag.award { border-color: var(--gold); color: var(--gold); }
+  .prod-tag.current { border-color: var(--gold-light); color: var(--gold-light); }
+  .prod-tag.world-premiere { border-color: rgba(201,168,76,0.5); color: var(--gold-light); }
+
+  .prod-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; color: var(--warm-white); line-height: 1.05; margin-bottom: 0.3rem; }
+  .prod-venue { font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; }
+  .prod-description { font-size: 0.78rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; flex-grow: 1; }
+  .prod-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--divider); }
+  .prod-detail-item { }
+  .prod-detail-label { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.2rem; }
+  .prod-detail-value { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: var(--cream); }
+
+  .photos-placeholder {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 0.5rem;
+  }
+  .mini-photo {
+    aspect-ratio: 4/3;
+    background: rgba(0,0,0,0.3);
+    border: 1px dashed rgba(201,168,76,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.25);
+  }
+
+  /* ── STATEMENT INTERLUDE ── */
+  .statement-band { background: var(--charcoal); padding: 5rem 0; margin: 0; border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
+  .statement-inner { max-width: 800px; margin: 0 auto; padding: 0 4rem; text-align: center; }
+  .statement-inner p { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 2.5vw, 1.9rem); font-style: italic; font-weight: 300; line-height: 1.6; color: var(--cream); }
+  .statement-inner cite { display: block; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 1.5rem; font-style: normal; }
+
+  /* ── EDUCATION DIRECTING ── */
+  .education-section { padding: 7rem 0; background: var(--black); }
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .edu-card { background: var(--charcoal); border: 1px solid var(--divider); padding: 2rem; transition: border-color 0.2s, transform 0.2s; position: relative; }
+  .edu-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--gold); transition: height 0.3s; }
+  .edu-card:hover::before { height: 100%; }
+  .edu-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+  .edu-card .prod-year { margin-bottom: 0.5rem; display: block; }
+  .edu-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--warm-white); margin-bottom: 0.3rem; }
+  .edu-card .venue { font-size: 0.65rem; color: var(--muted); font-style: italic; margin-bottom: 0.8rem; }
+  .edu-card p { font-size: 0.75rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── BACK LINK ── */
+  .back-section { background: var(--charcoal); padding: 5rem 0; text-align: center; border-top: 1px solid var(--divider); }
+  .back-section p { font-size: 0.75rem; color: var(--muted); margin-bottom: 2rem; }
+
+  footer { background: var(--black); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--divider); flex-wrap: wrap; gap: 1rem; }
+  .footer-name { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.3em; color: var(--gold); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 0.6rem; letter-spacing: 0.1em; color: var(--muted); }
+
+  .gold-rule { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .btn-primary { display: inline-block; padding: 0.9rem 2.5rem; background: var(--gold); color: var(--black); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-secondary { display: inline-block; padding: 0.9rem 2.5rem; border: 1px solid var(--divider); color: var(--cream); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 400; text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  @media (max-width: 900px) {
+    .page-header { padding: 7rem 2rem 4rem; }
+    .philosophy-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .production, .production.featured { grid-template-columns: 1fr; }
+    .prod-photo { min-height: 220px; }
+    .productions { padding: 0 2rem; }
+    nav { padding: 1.5rem 2rem; }
+    .nav-links { display: none; }
+    footer { flex-direction: column; text-align: center; }
+    .statement-inner { padding: 0 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="blake-hamman.html" class="nav-logo">Blake Hamman</a>
+  <ul class="nav-links">
+    <li><a href="blake-hamman.html">← Main Site</a></li>
+    <li><a href="blake-hamman.html#acting">Acting</a></li>
+    <li><a href="#" class="active">Directing</a></li>
+    <li><a href="blake-hamman.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <p class="breadcrumb"><a href="blake-hamman.html">Blake Hamman</a> <span>·</span> Directing Portfolio</p>
+  <h1 class="page-title">The Art of<br><em>Direction</em></h1>
+  <p class="page-intro">From world premieres to award-winning revivals — a career spent illuminating story, character, and the lived human experience on stages across Texas.</p>
+</header>
+
+<!-- DIRECTOR'S PHILOSOPHY -->
+<div class="philosophy">
+  <div class="philosophy-inner">
+    <div class="philosophy-label">Artistic Vision</div>
+    <blockquote class="philosophy-quote">
+      Theatre is the most immediate art form — it lives and dies in the present tense, in the breath between actor and audience. My work as a director starts with the question: what does this story demand of us, right now, in this room?
+    </blockquote>
+  </div>
+</div>
+
+<!-- PRODUCTIONS -->
+<div class="productions">
+  <div class="productions-header">
+    <p class="section-label">Selected Work</p>
+    <h2 class="section-title">Professional <em>Productions</em></h2>
+  </div>
+
+  <!-- CABARET -->
+  <div class="production current" id="cabaret">
+    <div class="prod-photo">
+      <span class="prod-number">01</span>
+      <img src="cabaret-2.jpg" alt="Cabaret — Wonder Theatre 2026" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;"/>
+    </div>
+    <div class="prod-info">
+      <div>
+        <div class="prod-meta">
+          <span class="prod-year">May – June 2026</span>
+          <span class="prod-tag current">Current Production</span>
+          <span class="prod-tag">Musical</span>
+        </div>
+        <h2 class="prod-title">Cabaret</h2>
+        <div class="prod-venue">Wonder Theatre · San Antonio, TX</div>
+        <p class="prod-description">
+          Kander and Ebb's masterwork set in the decadent, desperate world of 1930s Berlin — a story of love, politics, art, and the willful blindness that enables catastrophe. Directed for Wonder Theatre's 2026 season, this production explores the seductive power of performance and the cost of looking away.
+        </p>
+        <div class="photos-placeholder">
+          <div class="mini-photo" style="background:none;border:none;padding:0;overflow:hidden;"><img src="cabaret-1.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Cabaret production"/></div>
+          <div class="mini-photo" style="background:none;border:none;padding:0;overflow:hidden;"><img src="cabaret-2.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Cabaret production"/></div>
+          <div class="mini-photo">Photo courtesy Mewborne Photography</div>
+        </div>
+      </div>
+      <div class="prod-details">
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Venue</span>
+          <span class="prod-detail-value">Wonder Theatre</span>
+        </div>
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Season</span>
+          <span class="prod-detail-value">2026</span>
+        </div>
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Genre</span>
+          <span class="prod-detail-value">Musical</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEND ME A TENOR -->
+  <div class="production" id="tenor">
+    <div class="prod-photo">
+      <span class="prod-number">02</span>
+      <img src="lend-me-a-tenor-1.jpg" alt="Lend Me a Tenor — La Bête Productions 2026" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"/>
+    </div>
+    <div class="prod-info">
+      <div>
+        <div class="prod-meta">
+          <span class="prod-year">March 2026</span>
+          <span class="prod-tag">Comedy</span>
+        </div>
+        <h2 class="prod-title">Lend Me a Tenor</h2>
+        <div class="prod-venue">La Bête Productions</div>
+        <p class="prod-description">
+          Ken Ludwig's Tony Award-winning farce — a madcap comedy of mistaken identity set in 1934 Cleveland, where an Italian opera star's arrival throws an entire hotel into comedic chaos. A showcase of precision comic timing and ensemble work.
+        </p>
+        <div class="photos-placeholder">
+          <div class="mini-photo" style="background:none;border:none;padding:0;overflow:hidden;"><img src="lend-me-a-tenor-1.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Lend Me a Tenor"/></div>
+          <div class="mini-photo" style="background:none;border:none;padding:0;overflow:hidden;"><img src="lend-me-a-tenor-2.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Lend Me a Tenor"/></div>
+          <div class="mini-photo">Photo courtesy Mewborne Photography</div>
+        </div>
+      </div>
+      <div class="prod-details">
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Company</span>
+          <span class="prod-detail-value">La Bête Productions</span>
+        </div>
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Year</span>
+          <span class="prod-detail-value">2026</span>
+        </div>
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Genre</span>
+          <span class="prod-detail-value">Farce / Comedy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JUDGEMENT OF THE EYE -->
+  <div class="production featured" id="judgement">
+    <div class="prod-photo">
+      <span class="prod-number">03</span>
+      <img src="judgement-of-the-eye.jpg" alt="Judgement of the Eye — Overtime Theater" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;"/>
+    </div>
+    <div class="prod-info">
+      <div>
+        <div class="prod-meta">
+          <span class="prod-year">World Premiere</span>
+          <span class="prod-tag award">★ ATAC Award — Best Direction</span>
+          <span class="prod-tag world-premiere">World Premiere</span>
+        </div>
+        <h2 class="prod-title">Judgement of the Eye</h2>
+        <div class="prod-venue">Overtime Theater · San Antonio, TX</div>
+        <p class="prod-description">
+          The world premiere production of this original work — recognized by the Alamo Theatre Arts Council with its highest directing honor. Bringing a new script to life from the ground up, collaborating intimately with playwright and cast to find the heartbeat of a story that had never been staged before.
+        </p>
+        <p class="prod-description" style="margin-bottom:0;">
+          This production represents the intersection of Blake's deepest passions as a director: new work, collaborative storytelling, and the courage to let a play find its own shape in rehearsal.
+        </p>
+        <div class="photos-placeholder" style="margin-top:1.5rem;">
+          <div class="mini-photo" style="background:none;border:none;padding:0;overflow:hidden;"><img src="judgement-of-the-eye.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Judgement of the Eye"/></div>
+          <div class="mini-photo">Photo courtesy Mewborne Photography</div>
+          <div class="mini-photo"></div>
+        </div>
+      </div>
+      <div class="prod-details">
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Venue</span>
+          <span class="prod-detail-value">Overtime Theater</span>
+        </div>
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Distinction</span>
+          <span class="prod-detail-value">World Premiere</span>
+        </div>
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Award</span>
+          <span class="prod-detail-value">ATAC Best Direction</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIFESPAN OF A FACT -->
+  <div class="production" id="lifespan">
+    <div class="prod-photo">
+      <span class="prod-number">04</span>
+      <img src="lifespan-of-a-fact.jpg" alt="Lifespan of a Fact — 100A Productions" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;"/>
+    </div>
+    <div class="prod-info">
+      <div>
+        <div class="prod-meta">
+          <span class="prod-year">Professional</span>
+          <span class="prod-tag">Drama</span>
+        </div>
+        <h2 class="prod-title">Lifespan of a Fact</h2>
+        <div class="prod-venue">100A Productions · San Antonio, TX</div>
+        <p class="prod-description">
+          Jeremy Kareken, David Murrell &amp; Gordon Farrell's sharp two-hander about truth, journalism, and the space between fact and story. A tightly wound three-character drama demanding surgical precision in pacing and performance.
+        </p>
+        <div class="photos-placeholder">
+          <div class="mini-photo" style="background:none;border:none;padding:0;overflow:hidden;"><img src="lifespan-of-a-fact.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Lifespan of a Fact"/></div>
+          <div class="mini-photo">Photo courtesy Mewborne Photography</div>
+          <div class="mini-photo"></div>
+        </div>
+      </div>
+      <div class="prod-details">
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Company</span>
+          <span class="prod-detail-value">100A Productions</span>
+        </div>
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Genre</span>
+          <span class="prod-detail-value">Drama</span>
+        </div>
+        <div class="prod-detail-item">
+          <span class="prod-detail-label">Cast Size</span>
+          <span class="prod-detail-value">3 Actors</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /productions -->
+
+<!-- INTERLUDE -->
+<div class="statement-band">
+  <div class="statement-inner">
+    <p>Every production is a collaboration — with the playwright, the designers, and above all the actors. The director's job is to hold the vision and get out of the way of the truth.</p>
+    <cite>— On Directing</cite>
+  </div>
+</div>
+
+<!-- EDUCATION DIRECTING -->
+<section class="education-section">
+  <div style="max-width:1200px;margin:0 auto;padding:0 4rem;">
+    <p class="section-label">Youth &amp; Education</p>
+    <h2 class="section-title" style="margin-bottom:0;">Educational <em>Direction</em></h2>
+    <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem;margin-bottom:0;">A certified Texas theatre educator, Blake has directed student productions that have shaped young artists across the state.</p>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <span class="prod-year">High School</span>
+        <h4>The Insanity of Mary Girard</h4>
+        <div class="venue">Wharton High School</div>
+        <p>A rarely-produced 18th-century drama brought to life by high school performers — a bold choice that challenged students with complex material and period style.</p>
+      </div>
+      <div class="edu-card">
+        <span class="prod-year">High School</span>
+        <h4>Of Mice and Men</h4>
+        <div class="venue">Louise High School</div>
+        <p>Steinbeck's heartbreaking portrait of friendship and the American dream — directing student actors through material that demands emotional honesty and restraint.</p>
+      </div>
+      <div class="edu-card">
+        <span class="prod-year">University</span>
+        <h4>Stone Cold Dead Serious</h4>
+        <div class="venue">Texas State Studio Theatre</div>
+        <p>Adam Rapp's gritty, urgent drama directed in the studio space at Texas State University — an early directorial credit that established a commitment to visceral, honest storytelling.</p>
+      </div>
+      <div class="edu-card">
+        <span class="prod-year">High School</span>
+        <h4>Clue the Musical</h4>
+        <div class="venue">El Campo High School</div>
+        <p>The beloved whodunit brought to the stage — a high-energy production combining comedy, mystery, and ensemble performance for a younger audience and cast.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- BACK / CONTACT -->
+<div class="back-section">
+  <div style="max-width:600px;margin:0 auto;padding:0 2rem;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-style:italic;color:var(--warm-white);margin-bottom:1rem;">Interested in collaborating on an upcoming production?</p>
+    <p>Production photos and full press kits available upon request for all listed productions.</p>
+    <div style="display:flex;gap:1.5rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;">
+      <a href="blake-hamman.html#contact" class="btn-primary">Get In Touch</a>
+      <a href="blake-hamman.html" class="btn-secondary">← Back to Main Site</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-name">Blake Hamman</span>
+  <div class="footer-links">
+    <a href="blake-hamman.html">Main Site</a>
+    <a href="blake-hamman.html#acting">Acting Credits</a>
+    <a href="blake-hamman.html#contact">Contact</a>
+  </div>
+  <span class="footer-copy">Director · Actor · Producer · San Antonio, TX</span>
+</footer>
+
+</body>
+</html>
