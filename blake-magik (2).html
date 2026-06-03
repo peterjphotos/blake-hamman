@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blake Hamman — Director for Young Audiences</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6f0;
+    --warm-white: #fff9f2;
+    --ink: #1c1410;
+    --ink-soft: #4a3f35;
+    --terracotta: #c4623a;
+    --terracotta-light: #e8927a;
+    --sage: #6b8c6e;
+    --gold: #b8933f;
+    --border: rgba(28,20,16,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* ── PRINT / PDF ── */
+  @media print {
+    body { background: white; }
+    .page { max-width: 100%; padding: 0.5in 0.65in; box-shadow: none; }
+    .no-print { display: none; }
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 64px 64px;
+    background: var(--warm-white);
+    position: relative;
+  }
+
+  /* ── HEADER ── */
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1.5px solid var(--border);
+    margin-bottom: 36px;
+  }
+
+  .header-left {}
+
+  .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .header-tagline {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 10px;
+    line-height: 1.6;
+    max-width: 360px;
+  }
+
+  .header-meta {
+    text-align: right;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    line-height: 2.0;
+  }
+
+  .header-meta a {
+    color: var(--terracotta);
+    text-decoration: none;
+  }
+
+  /* ── MISSION ── */
+  .mission {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 22px 36px 22px 48px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .mission::before {
+    content: '\201C';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    line-height: 0;
+    position: absolute;
+    top: 38px;
+    left: 18px;
+    color: var(--terracotta);
+    opacity: 0.7;
+  }
+
+  .mission p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: #f5ede3;
+  }
+
+  /* ── TWO COLUMN ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 36px;
+  }
+
+  /* ── SECTION ── */
+  .section-label {
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── PRODUCTION LIST ── */
+  .production {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .production:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .prod-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+
+  .prod-company {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+
+  .prod-desc {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-bottom: 5px;
+  }
+
+  .badge-award {
+    background: rgba(184,147,63,0.12);
+    color: var(--gold);
+    border: 1px solid rgba(184,147,63,0.3);
+  }
+
+  .badge-current {
+    background: rgba(107,140,110,0.12);
+    color: var(--sage);
+    border: 1px solid rgba(107,140,110,0.3);
+  }
+
+  /* ── YOUTH PRODUCTIONS ── */
+  .youth-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: start;
+    margin-bottom: 14px;
+  }
+
+  .youth-item:last-child { margin-bottom: 0; }
+
+  .youth-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .youth-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .youth-sub {
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    margin-top: 1px;
+  }
+
+  /* ── CREDENTIAL STRIP ── */
+  .credentials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+
+  .cred-item {
+    background: var(--warm-white);
+    padding: 16px 18px;
+    text-align: center;
+  }
+
+  .cred-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--terracotta);
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .cred-label {
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    line-height: 1.3;
+  }
+
+  /* ── WHY MAGIK ── */
+  .why-section {
+    background: rgba(196,98,58,0.06);
+    border-left: 3px solid var(--terracotta);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+
+  .why-section p {
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  .why-section p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1.5px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .footer-links {
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    text-align: right;
+    line-height: 1.9;
+  }
+
+  .footer-links a {
+    color: var(--terracotta);
+    text-decoration: none;
+  }
+
+  /* ── ORIGIN STORY ── */
+  .origin {
+    margin-bottom: 28px;
+  }
+
+  .origin-inner {
+    border-left: 3px solid var(--terracotta);
+    padding: 16px 20px;
+    background: rgba(196,98,58,0.05);
+  }
+
+  .origin-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 10px;
+  }
+
+  .origin-inner p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+
+  .origin-inner p:last-child { margin-bottom: 0; }
+
+  .origin-inner em {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .origin-inner strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .prod-link {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    text-decoration: none;
+    margin-top: 4px;
+    border-bottom: 1px solid rgba(196,98,58,0.3);
+    padding-bottom: 1px;
+  }
+  .prod-link:hover { border-bottom-color: var(--terracotta); }
+
+  /* ── PRINT BUTTON ── */
+  .print-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    padding: 12px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    z-index: 100;
+  }
+
+  .print-btn:hover { background: var(--terracotta); }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <div class="eyebrow">Director · Theatre Educator · San Antonio, TX</div>
+      <h1>Blake <em>Hamman</em></h1>
+      <p class="header-tagline">A career shaped by story, community, and the belief that theatre changes lives — especially young ones.</p>
+    </div>
+    <div class="header-meta">
+      blakehamman.com<br>
+      San Antonio, TX<br>
+      <a href="https://peterjphotos.github.io/blake-hamman/blake-directing.html">Full Portfolio →</a>
+    </div>
+  </header>
+
+  <!-- MISSION -->
+  <div class="mission">
+    <p>I grew up in a small rural Texas town with almost no access to the arts. A third-grade field trip to a high school production of <em>Aesop's Falables</em> changed everything — the moment I saw an actor leap from a jack-in-the-box, I knew I wanted to be on that stage. That one afternoon set the course of my life.</p>
+  </div>
+
+  <!-- ORIGIN STORY -->
+  <div class="origin">
+    <div class="origin-inner">
+      <div class="origin-label">Why Children's Theatre</div>
+      <p>A church group gave me my first chance — fourth grade, <em>The Best Christmas Pageant Ever</em>, playing Ollie Herdman. The next year I was Wilbur in <em>Charlotte's Web</em>. When that program ended, so did my access to theatre — until high school, where I found it again performing Ugly Uncle Rumple in <em>The Liberated Cinderella</em> for 2nd through 5th graders from neighboring schools who crossed the street to see us. I did that children's show every year for four years.</p>
+      <p>Those experiences — as an audience member, then as a performer — are exactly why I want to direct children's theatre now. Someone gave me that gift. <strong>I want to spend my career giving it back.</strong></p>
+    </div>
+  </div>
+
+  <!-- CREDENTIAL STRIP -->
+  <div class="credentials">
+    <div class="cred-item">
+      <span class="cred-value">7+</span>
+      <span class="cred-label">Directed Productions</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-value">ATAC</span>
+      <span class="cred-label">Award — Best Direction</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-value" style="font-size:14px; line-height:1.3">Theatre EC–12<br>Speech 8–12</span>
+      <span class="cred-label">Texas Teaching Certificates</span>
+    </div>
+  </div>
+
+  <!-- TWO COLUMN -->
+  <div class="two-col">
+
+    <!-- LEFT: Youth & Education -->
+    <div>
+      <div class="section-label">Youth &amp; Educational Direction</div>
+
+      <div class="youth-item">
+        <div class="youth-dot"></div>
+        <div>
+          <div class="youth-title">Stone Cold Dead Serious</div>
+          <div class="youth-sub">Texas State University Studio Theatre · University</div>
+        </div>
+      </div>
+
+      <div class="youth-item">
+        <div class="youth-dot"></div>
+        <div>
+          <div class="youth-title">Of Mice and Men</div>
+          <div class="youth-sub">Louise High School · Directing student actors through emotionally demanding material with honesty and care</div>
+        </div>
+      </div>
+
+      <div class="youth-item">
+        <div class="youth-dot"></div>
+        <div>
+          <div class="youth-title">The Insanity of Mary Girard</div>
+          <div class="youth-sub">Wharton High School · Rarely-produced 18th-century drama with high school performers</div>
+        </div>
+      </div>
+
+      <div class="youth-item">
+        <div class="youth-dot"></div>
+        <div>
+          <div class="youth-title">Clue the Musical</div>
+          <div class="youth-sub">El Campo High School · High-energy ensemble comedy for a younger audience and cast</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Professional Work -->
+    <div>
+      <div class="section-label">Professional Productions</div>
+
+      <div class="production">
+        <div class="badge badge-award">★ ATAC Best Direction</div>
+        <div class="prod-title">Judgement of the Eye</div>
+        <div class="prod-company">Overtime Theater · World Premiere</div>
+        <div class="prod-desc">World premiere of an original work — recognized by the Alamo Theatre Arts Council with its Best Direction award.</div>
+        <a class="prod-link" href="https://peterjphotos.github.io/blake-hamman/judgement-of-the-eye.html" target="_blank">View Production →</a>
+      </div>
+
+      <div class="production">
+        <div class="badge badge-current">Current · 2026</div>
+        <div class="prod-title">Cabaret</div>
+        <div class="prod-company">Wonder Theatre · San Antonio</div>
+        <div class="prod-desc">Kander &amp; Ebb's masterwork set in 1930s Berlin. A bold interpretive choice — the Emcee becomes a Nazi, reframing the show's moral stakes from the opening number.</div>
+        <a class="prod-link" href="https://peterjphotos.github.io/blake-hamman/cabaret.html" target="_blank">View Production →</a>
+      </div>
+
+      <div class="production">
+        <div class="prod-title">Beautiful: The Carole King Musical</div>
+        <div class="prod-company">Wonder Theatre · Assistant Director</div>
+        <div class="prod-desc">Assistant direction on the Tony Award-winning musical tracing Carole King's rise from teenage songwriter to one of the most celebrated voices in pop history.</div>
+      </div>
+
+      <div class="production">
+        <div class="prod-title">Lend Me a Tenor</div>
+        <div class="prod-company">La Bête Productions · 2026</div>
+        <div class="prod-desc">Ken Ludwig's Tony Award-winning farce — precision comic timing and ensemble work.</div>
+        <a class="prod-link" href="https://peterjphotos.github.io/blake-hamman/lend-me-a-tenor.html" target="_blank">View Production →</a>
+      </div>
+
+      <div class="production">
+        <div class="prod-title">Lifespan of a Fact</div>
+        <div class="prod-company">100A Productions · San Antonio</div>
+        <div class="prod-desc">A sharp three-character comedy/drama — surgical precision in pacing across a tight, high-stakes ensemble.</div>
+        <a class="prod-link" href="https://peterjphotos.github.io/blake-hamman/lifespan-of-a-fact.html" target="_blank">View Production →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WHY MAGIK -->
+  <div class="why-section">
+    <p><strong>On Magik Theatre:</strong> Magik is doing exactly what that church group did for me — putting professional-quality stories in front of children who may have no other access to live theatre. I know what it means to be that kid in the audience. I know what it means to be that kid on the stage. I want to be the director who makes that possible for the next generation — and I can't think of a better place to do it than here, in San Antonio, the city where I've built my career.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Blake Hamman</div>
+    <div class="footer-links">
+      Director · Actor · Producer · San Antonio, TX<br>
+      <a href="https://peterjphotos.github.io/blake-hamman/blake-directing.html">Full Directing Portfolio</a> · <a href="https://peterjphotos.github.io/blake-hamman/blake-hamman.html">Main Site</a>
+    </div>
+  </footer>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">Save as PDF</button>
+
+</body>
+</html>
