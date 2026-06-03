@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Lifespan of a Fact — Blake Hamman · Directing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink:        #1a1714;
+      --paper:      #f5f0e8;
+      --cream:      #ede7d9;
+      --gold:       #b8933a;
+      --gold-lt:    #d4b06a;
+      --rust:       #8b3a2a;
+      --slate:      #2c3a4a;
+      --muted:      #6b6258;
+      --rule:       rgba(26,23,20,.15);
+      --f-display:  'Cormorant Garamond', Georgia, serif;
+      --f-body:     'Jost', sans-serif;
+      --max:        1100px;
+      --gap:        clamp(2rem, 5vw, 5rem);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--f-body);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--ink); color: var(--paper);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem clamp(1.2rem, 4vw, 3rem);
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    }
+    nav a { opacity: .7; transition: opacity .2s; }
+    nav a:hover { opacity: 1; }
+    nav .brand { opacity: 1; font-weight: 500; font-size: .8rem; letter-spacing: .08em; }
+    nav .links { display: flex; gap: 2rem; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .hero-image { position: relative; overflow: hidden; }
+    .hero-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: sepia(.1) contrast(1.06);
+    }
+    .hero-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--paper) 100%);
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: var(--gap) clamp(2rem, 5vw, 5rem) var(--gap) 3rem;
+    }
+    .hero-eyebrow {
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(2.4rem, 4vw, 4.2rem); line-height: 1.05; margin-bottom: .5rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--rust); }
+    .hero-sub {
+      font-family: var(--f-display); font-style: italic;
+      font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem;
+    }
+    .hero-meta {
+      display: flex; flex-direction: column; gap: .5rem;
+      border-left: 2px solid var(--gold); padding-left: 1.2rem; margin-bottom: 2.5rem;
+    }
+    .hero-meta span {
+      font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted);
+    }
+    .hero-meta strong { color: var(--ink); font-weight: 500; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+      border: 1px solid var(--gold); color: var(--gold);
+      padding: .35rem .8rem; border-radius: 2px;
+    }
+    .badge.filled { background: var(--gold); color: var(--paper); }
+    .badge svg { width: 12px; height: 12px; fill: currentColor; }
+
+    /* ── Shared ── */
+    .divider { width: 100%; height: 1px; background: var(--rule); }
+    .section-label {
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.2rem, 4vw, 3rem); }
+    section { padding: var(--gap) 0; }
+
+    /* ── Synopsis ── */
+    .synopsis-grid {
+      display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; align-items: start;
+    }
+    .synopsis-grid h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2; margin-bottom: 1.2rem;
+    }
+    .synopsis-grid h2 em { font-style: italic; color: var(--rust); }
+    .synopsis-grid p { font-size: 1rem; margin-bottom: 1rem; max-width: 58ch; }
+    .variety-pull {
+      margin: 1.5rem 0;
+      border-left: 3px solid var(--gold);
+      padding-left: 1.2rem;
+    }
+    .variety-pull p {
+      font-family: var(--f-display); font-style: italic;
+      font-size: 1.05rem; color: var(--ink); margin-bottom: .3rem;
+    }
+    .variety-pull cite {
+      font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold);
+      font-style: normal;
+    }
+    .aside-card {
+      background: var(--cream); border-top: 3px solid var(--gold); padding: 2rem;
+    }
+    .aside-card h3 { font-family: var(--f-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; }
+    .aside-card dl { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1rem; font-size: .82rem; }
+    .aside-card dt { color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; padding-top: .15rem; }
+    .aside-card dd { color: var(--ink); }
+
+    /* ── Director's Statement ── */
+    .statement-section { background: var(--ink); color: var(--paper); }
+    .statement-section .container {
+      padding-top: var(--gap); padding-bottom: var(--gap);
+      display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start;
+    }
+    .statement-section .section-label { color: var(--gold-lt); }
+    .statement-section h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.4rem, 2.5vw, 2rem); color: var(--paper); line-height: 1.2;
+    }
+    blockquote.statement {
+      font-family: var(--f-display); font-style: italic;
+      font-size: clamp(1.1rem, 2vw, 1.5rem); line-height: 1.6;
+      color: var(--cream);
+      border-left: 3px solid var(--gold); padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .statement-body p {
+      font-size: .95rem; color: rgba(245,240,232,.75); margin-bottom: 1rem; max-width: 60ch;
+    }
+
+    /* ── Gallery ── */
+    .gallery-intro {
+      display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2rem;
+    }
+    .gallery-intro h2 {
+      font-family: var(--f-display); font-weight: 300; font-size: clamp(1.6rem, 3vw, 2.4rem);
+    }
+    .gallery-intro h2 em { font-style: italic; color: var(--rust); }
+    .gallery-credit { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 10px; }
+    .g-img { overflow: hidden; background: var(--cream); position: relative; }
+    .g-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s ease, filter .5s ease; filter: sepia(.08);
+    }
+    .g-img:hover img { transform: scale(1.03); filter: sepia(0); }
+    .g-img.span-8  { grid-column: span 8;  aspect-ratio: 16/9; }
+    .g-img.span-4  { grid-column: span 4;  aspect-ratio: 4/5; }
+    .g-img.span-4h { grid-column: span 4;  aspect-ratio: 16/9; }
+    .g-img.span-6  { grid-column: span 6;  aspect-ratio: 4/3; }
+    .g-img.span-3  { grid-column: span 3;  aspect-ratio: 1; }
+    .g-img.span-12 { grid-column: span 12; aspect-ratio: 21/9; }
+
+    /* ── ATAC Feature ── */
+    .atac-section { background: var(--cream); }
+    .atac-section .container { padding-top: var(--gap); padding-bottom: var(--gap); }
+    .atac-intro {
+      display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start;
+      margin-bottom: 3rem;
+    }
+    .atac-intro h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2;
+    }
+    .atac-intro h2 em { font-style: italic; color: var(--rust); }
+    .atac-intro p { font-size: .95rem; max-width: 56ch; margin-bottom: .9rem; }
+    .atac-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px;
+      background: var(--rule); border: 1px solid var(--rule);
+    }
+    .atac-item {
+      background: var(--paper); padding: 1.2rem 1.5rem;
+    }
+    .atac-item .cat {
+      font-size: .62rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .3rem;
+    }
+    .atac-item .person {
+      font-family: var(--f-display); font-size: 1.05rem; font-weight: 600;
+      margin-bottom: .1rem;
+    }
+    .atac-item .detail { font-size: .78rem; color: var(--muted); }
+    .atac-note {
+      margin-top: 1.5rem; font-size: .82rem; color: var(--muted);
+      border-top: 1px solid var(--rule); padding-top: 1rem;
+      max-width: 64ch;
+    }
+
+    /* ── Press ── */
+    .press-section { background: var(--ink); color: var(--paper); }
+    .press-section .container { padding-top: var(--gap); padding-bottom: var(--gap); }
+    .press-section .section-label { color: var(--gold-lt); }
+    .press-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 2rem; }
+    .press-card {
+      background: rgba(255,255,255,.04);
+      border-top: 2px solid rgba(184,147,58,.35);
+      padding: 2rem;
+    }
+    .press-card.lead {
+      grid-column: span 2;
+      background: rgba(255,255,255,.07);
+      border-top-color: var(--gold);
+    }
+    blockquote.press {
+      font-family: var(--f-display); font-style: italic;
+      font-size: clamp(1rem, 1.8vw, 1.35rem); line-height: 1.55;
+      color: var(--cream); margin-bottom: 1rem;
+    }
+    .press-card.lead blockquote.press { font-size: clamp(1.1rem, 2vw, 1.55rem); }
+    .press-attr {
+      font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; color: var(--gold-lt);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .press-attr::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--gold-lt); }
+
+    /* ── Cast ── */
+    .cast-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem; margin-top: 2rem;
+    }
+    .cast-card { border-top: 2px solid var(--rule); padding-top: .8rem; }
+    .cast-card .character { font-family: var(--f-display); font-style: italic; font-size: 1rem; color: var(--rust); margin-bottom: .1rem; }
+    .cast-card .actor { font-size: .92rem; font-weight: 500; }
+    .cast-card .note { font-size: .72rem; color: var(--muted); }
+
+    /* ── Creative Team ── */
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem; margin-top: 2rem;
+    }
+    .team-item .role-label { font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
+    .team-item .name { font-family: var(--f-display); font-size: 1.1rem; font-weight: 600; }
+    .team-item .note { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
+
+    /* ── Context ── */
+    .context-section {
+      background: var(--slate); color: var(--paper);
+    }
+    .context-section .container { padding-top: var(--gap); padding-bottom: var(--gap); }
+    .context-section .section-label { color: var(--gold-lt); }
+    .context-section h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.4rem, 2.5vw, 2rem); color: var(--paper); margin-bottom: 1.5rem;
+    }
+    .context-section h2 em { font-style: italic; color: var(--gold-lt); }
+    .context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .context-grid p { font-size: .92rem; color: rgba(245,240,232,.72); margin-bottom: .9rem; max-width: 52ch; }
+    .context-grid p strong { color: var(--paper); font-weight: 500; }
+
+    /* ── Footer ── */
+    .page-footer {
+      background: var(--ink); color: var(--paper);
+      padding: 3rem clamp(1.2rem, 4vw, 3rem);
+      display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center;
+    }
+    .page-footer .brand { font-family: var(--f-display); font-size: 1.4rem; font-weight: 300; }
+    .page-footer .brand em { font-style: italic; color: var(--gold-lt); }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a {
+      font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(245,240,232,.55); transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--paper); }
+    .footer-copy { font-size: .68rem; color: rgba(245,240,232,.35); }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { height: 55vw; }
+      .hero-image::after { background: linear-gradient(to bottom, transparent 50%, var(--paper) 100%); }
+      .hero-text { padding: 2rem 1.5rem; }
+      .synopsis-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .statement-section .container { grid-template-columns: 1fr; gap: 2rem; }
+      .atac-intro { grid-template-columns: 1fr; gap: 2rem; }
+      .press-grid { grid-template-columns: 1fr; }
+      .press-card.lead { grid-column: span 1; }
+      .context-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .g-img.span-8 { grid-column: span 12; }
+      .g-img.span-4, .g-img.span-4h { grid-column: span 6; }
+      .g-img.span-6 { grid-column: span 12; }
+      .g-img.span-3 { grid-column: span 6; }
+    }
+    @media (max-width: 520px) {
+      .g-img.span-4, .g-img.span-4h, .g-img.span-3 { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <a href="blake-hamman.html" class="brand">Blake Hamman</a>
+  <div class="links">
+    <a href="blake-hamman.html#acting">Acting</a>
+    <a href="blake-directing.html">Directing</a>
+    <a href="blake-hamman.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="hero-image">
+    <!-- Replace with actual photo filename -->
+    <img src="lifespan-of-a-fact-1.jpg" alt="The Lifespan of a Fact — production photo" />
+  </div>
+  <div class="hero-text">
+    <p class="hero-eyebrow">Directing · Comedy · 2024</p>
+    <h1>The Lifespan<br>of a <em>Fact</em></h1>
+    <p class="hero-sub">A play by Jeremy Kareken, David Murrell &amp; Gordon Farrell<br>Based on the book by John D'Agata &amp; Jim Fingal</p>
+
+    <div class="hero-meta">
+      <span><strong>Venue</strong> Carlos Alvarez Studio Theatre · Tobin Center</span>
+      <span><strong>Run</strong> September 4–15, 2024</span>
+      <span><strong>Produced by</strong> 100A Productions</span>
+      <span><strong>Original Play</strong> Broadway, 2018 · starring Daniel Radcliffe</span>
+    </div>
+
+    <div class="badge-row">
+      <span class="badge filled">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        7 ATAC Nominations
+      </span>
+      <span class="badge">Tobin Center · 100A Productions</span>
+      <span class="badge">Season Opener · 2024–25</span>
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- ── Synopsis ── -->
+<section>
+  <div class="container">
+    <div class="synopsis-grid">
+      <div>
+        <p class="section-label">The Story</p>
+        <h2>Facts, Truth &amp; the <em>Space Between</em></h2>
+        <p>
+          A prominent New York magazine is struggling to survive. Its one hope: a transcendent
+          essay by celebrated writer John D'Agata about the suicide of a teenage boy in Las Vegas.
+          The piece is assigned to Jim Fingal, a fresh-out-of-Harvard fact-checker, for a
+          routine verification pass. Fingal finds 130 factual inaccuracies.
+        </p>
+        <p>
+          What follows is a comedic yet gripping battle between two people who are both entirely
+          right. D'Agata defends every liberty as essential to the emotional truth of the essay.
+          Fingal insists that truth is not a matter of artistic license. Their editor, caught
+          between them, must decide what the magazine stands for — and what it will stake its
+          survival on.
+        </p>
+        <p>
+          Based on a real dispute that sparked a nationwide media debate about facts, narrative,
+          and the ethics of storytelling, the play is both a tightly wound comedy of ideas and
+          a portrait of a media landscape under pressure. As relevant in 2024 as when it opened
+          on Broadway in 2018.
+        </p>
+        <div class="variety-pull">
+          <p>"Terrifically funny dialogue… once the writer and the fact-checker get into a lively
+          debate on the ethics of factual truth vs. the beauty of literary dishonesty, it's time
+          to really sit up and listen."</p>
+          <cite>— Variety</cite>
+        </div>
+      </div>
+      <div>
+        <div class="aside-card">
+          <h3>Production Details</h3>
+          <dl>
+            <dt>Playwright</dt>
+            <dd>Jeremy Kareken, David Murrell<br>&amp; Gordon Farrell</dd>
+            <dt>Source</dt>
+            <dd>Based on the book by<br>John D'Agata &amp; Jim Fingal</dd>
+            <dt>Director</dt>
+            <dd>Blake Hamman</dd>
+            <dt>Venue</dt>
+            <dd>Carlos Alvarez Studio Theatre<br>Tobin Center for the Performing Arts<br>San Antonio, TX</dd>
+            <dt>Dates</dt>
+            <dd>September 4–15, 2024</dd>
+            <dt>Producer</dt>
+            <dd>100A Productions</dd>
+            <dt>Set Design</dt>
+            <dd>Edward Diaz</dd>
+            <dt>Lighting &amp; Sound</dt>
+            <dd>Chuck Drew</dd>
+            <dt>ATAC</dt>
+            <dd>7 Nominations · 34th Globe Awards</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Director's Statement ── -->
+<section class="statement-section">
+  <div class="container">
+    <div>
+      <p class="section-label">Director's Statement</p>
+      <h2>On Directing<br><em>The Lifespan<br>of a Fact</em></h2>
+    </div>
+    <div class="statement-body">
+      <blockquote class="statement">
+        "This play lives or dies on the question of who the audience agrees with —
+        and the trick is making sure they're never entirely sure."
+      </blockquote>
+      <p>
+        The great pleasure of directing a comedy of ideas is that the laughs and the
+        argument are the same thing. Every time Jim catches D'Agata in a fabrication,
+        it's funny — and it matters. Every time D'Agata defends his artistic license,
+        it's funny — and it matters. The comedy is not relief from the argument;
+        the comedy is the argument.
+      </p>
+      <p>
+        In 2024, this material arrived with an urgency its writers couldn't have
+        entirely anticipated. The question of what constitutes a fact — who gets to
+        decide, what the stakes are, what we lose when we let narrative override truth
+        — has moved from editorial rooms to the center of public life. The play doesn't
+        take a side. It insists on holding both, and trusting the audience to sit in
+        that discomfort.
+      </p>
+      <p>
+        Working with a cast of three exceptional actors, each fully committed to the
+        logic of their character's position, the production aimed for exactly that:
+        a night where you laugh the whole way through and leave arguing with whoever
+        came with you.
+      </p>
+      <p style="font-size:.8rem; color:rgba(245,240,232,.45); margin-top:1.5rem;">
+        — Blake Hamman, Director
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Gallery ── -->
+<section>
+  <div class="container">
+    <div class="gallery-intro">
+      <div>
+        <p class="section-label">Production Photography</p>
+        <h2>The <em>Production</em></h2>
+      </div>
+      <span class="gallery-credit">Photos: Jessica Mewborne / Mewborne Photography</span>
+    </div>
+
+    <div class="gallery-grid">
+      <!-- Replace lifespan-of-a-fact-N.jpg with actual filenames -->
+      <div class="g-img span-8">
+        <img src="lifespan-of-a-fact-1.jpg" alt="The Lifespan of a Fact — production" />
+      </div>
+      <div class="g-img span-4">
+        <img src="lifespan-of-a-fact-2.jpg" alt="The Lifespan of a Fact — production" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="lifespan-of-a-fact-3.jpg" alt="Production photo 3" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="lifespan-of-a-fact-4.jpg" alt="Production photo 4" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="lifespan-of-a-fact-5.jpg" alt="Production photo 5" />
+      </div>
+      <div class="g-img span-6">
+        <img src="lifespan-of-a-fact-6.jpg" alt="Production photo 6" />
+      </div>
+      <div class="g-img span-6">
+        <img src="lifespan-of-a-fact-7.jpg" alt="Production photo 7" />
+      </div>
+    </div>
+    <p style="font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-top:1rem; text-align:right;">
+      <!-- Remove once photos are uploaded -->
+      Replace placeholder filenames (lifespan-of-a-fact-1.jpg through -7.jpg) with actual filenames
+    </p>
+  </div>
+</section>
+
+<!-- ── ATAC ── -->
+<section class="atac-section">
+  <div class="container">
+    <div class="atac-intro">
+      <div>
+        <p class="section-label">Recognition</p>
+        <h2>34th ATAC Globe<br><em>Nominations</em></h2>
+      </div>
+      <div>
+        <p>
+          <em>The Lifespan of a Fact</em> received seven nominations at the 34th ATAC
+          Globe Awards — the most of any comedy production in the season. For a
+          three-person play, the breadth of recognition across direction, all three
+          lead performances, and three technical categories is a testament to the
+          cohesion of the entire company's work.
+        </p>
+        <p>
+          The production competed in one of the strongest comedy fields in recent ATAC
+          history, alongside fellow 100A productions <em>Talley's Folly</em> and
+          <em>The Revolutionists</em>, and was nominated for Outstanding Production
+          of a Comedy.
+        </p>
+      </div>
+    </div>
+
+    <div class="atac-grid">
+      <div class="atac-item">
+        <p class="cat">Direction · Comedy</p>
+        <p class="person">Blake Hamman</p>
+        <p class="detail">34th ATAC Globe Nominee</p>
+      </div>
+      <div class="atac-item">
+        <p class="cat">Lead Performer · Male · Comedy</p>
+        <p class="person">Andy Thornton</p>
+        <p class="detail">as John D'Agata · 34th ATAC Globe Nominee</p>
+      </div>
+      <div class="atac-item">
+        <p class="cat">Lead Performer · Male · Comedy</p>
+        <p class="person">Michael Roberts</p>
+        <p class="detail">as Jim Fingal · 34th ATAC Globe Nominee</p>
+      </div>
+      <div class="atac-item">
+        <p class="cat">Lead Performer · Female · Comedy</p>
+        <p class="person">Emily Spicer</p>
+        <p class="detail">as Emily Penrose · 34th ATAC Globe Nominee</p>
+      </div>
+      <div class="atac-item">
+        <p class="cat">Scene Design · Play</p>
+        <p class="person">Edward Diaz</p>
+        <p class="detail">34th ATAC Globe Nominee</p>
+      </div>
+      <div class="atac-item">
+        <p class="cat">Lighting Design · Play</p>
+        <p class="person">Chuck Drew</p>
+        <p class="detail">34th ATAC Globe Nominee</p>
+      </div>
+      <div class="atac-item">
+        <p class="cat">Sound Design · Play</p>
+        <p class="person">Chuck Drew</p>
+        <p class="detail">34th ATAC Globe Nominee</p>
+      </div>
+      <div class="atac-item">
+        <p class="cat">Outstanding Production · Comedy</p>
+        <p class="person">The Lifespan of a Fact</p>
+        <p class="detail">100A Productions · 34th ATAC Globe Nominee</p>
+      </div>
+    </div>
+
+    <p class="atac-note">
+      Emily Spicer received a second ATAC nomination the same season for
+      <em>The Revolutionists</em> (also 100A Productions), recognizing her as
+      one of the outstanding performers of the 2024–25 San Antonio season.
+    </p>
+  </div>
+</section>
+
+<!-- ── Press ── -->
+<section class="press-section">
+  <div class="container">
+    <p class="section-label">Response</p>
+    <h2 style="font-family:var(--f-display); font-weight:300; font-size:clamp(1.4rem,2.5vw,2rem); color:var(--paper);">
+      What San Antonio <em style="font-style:italic; color:var(--gold-lt);">Said</em>
+    </h2>
+    <div class="press-grid">
+      <div class="press-card lead">
+        <blockquote class="press">
+          "Congratulations to the cast, crew and 100A Productions on their
+          presentation of The Lifespan of a Fact. A great theatrical evening!"
+        </blockquote>
+        <div class="press-attr">Vincent Hardy · Director, Overtime Theater · Facebook</div>
+      </div>
+      <div class="press-card">
+        <blockquote class="press">
+          "It becomes this incredibly emotional, hilarious back-and-forth
+          conversation and debate… The writing is super sharp."
+        </blockquote>
+        <div class="press-attr">Emily Spicer · Cast · San Antonio Report, September 2024</div>
+      </div>
+      <div class="press-card">
+        <blockquote class="press">
+          "There's not some big declaration… It's really a conversation and
+          an exploration of the different viewpoints surrounding truth versus fact."
+        </blockquote>
+        <div class="press-attr">Emily Spicer · Cast · San Antonio Report, September 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Cast ── -->
+<section>
+  <div class="container">
+    <p class="section-label">Company</p>
+    <h2 style="font-family:var(--f-display); font-weight:300; font-size:clamp(1.4rem,2.5vw,2rem); margin-bottom:.3rem;">
+      The <em style="font-style:italic; color:var(--rust);">Cast</em>
+    </h2>
+    <div class="cast-grid">
+      <div class="cast-card">
+        <p class="character">John D'Agata</p>
+        <p class="actor">Andy Thornton</p>
+        <p class="note">ATAC Nominated · Lead Male in a Comedy</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Jim Fingal</p>
+        <p class="actor">Michael Roberts</p>
+        <p class="note">ATAC Nominated · Lead Male in a Comedy</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Emily Penrose</p>
+        <p class="actor">Emily Spicer</p>
+        <p class="note">ATAC Nominated · Lead Female in a Comedy</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Creative Team ── -->
+<section>
+  <div class="container">
+    <p class="section-label">Creative Team</p>
+    <div class="team-grid">
+      <div class="team-item">
+        <p class="role-label">Direction</p>
+        <p class="name">Blake Hamman</p>
+        <p class="note">ATAC Nominated · Direction of a Comedy</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Scene Design</p>
+        <p class="name">Edward Diaz</p>
+        <p class="note">ATAC Nominated</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Lighting &amp; Sound Design</p>
+        <p class="name">Chuck Drew</p>
+        <p class="note">ATAC Nominated · both categories</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Production Photography</p>
+        <p class="name">Jessica Mewborne</p>
+        <p class="note">Mewborne Photography</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Produced By</p>
+        <p class="name">100A Productions</p>
+        <p class="note">at the Tobin Center for the Performing Arts</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Context ── -->
+<section class="context-section">
+  <div class="container">
+    <p class="section-label">About the Production</p>
+    <h2>100A Productions &amp; <em>The Tobin Center</em></h2>
+    <div class="context-grid">
+      <div>
+        <p>
+          <strong>100A Productions</strong> is the Tobin Center for the Performing Arts'
+          resident theater company, presenting innovative work in the intimate
+          Carlos Alvarez Studio Theatre. The 2024–25 season — which included
+          <em>The Lifespan of a Fact</em>, <em>Talley's Folly</em>, and
+          <em>The Revolutionists</em> — earned the company an extraordinary
+          number of ATAC Globe nominations across all three productions.
+        </p>
+        <p>
+          <em>The Lifespan of a Fact</em> opened the season on September 4, 2024,
+          running through September 15. It marked Blake's second production
+          with 100A, having previously appeared as Doc Porter in
+          <em>Crimes of the Heart</em>.
+        </p>
+      </div>
+      <div>
+        <p>
+          <strong>About the play:</strong> Based on a real editorial dispute at
+          <em>The Believer</em> magazine in the early 2000s, the play was adapted
+          for the stage by Jeremy Kareken, David Murrell, and Gordon Farrell.
+          It opened on Broadway in October 2018, starring Daniel Radcliffe,
+          Bobby Cannavale, and Cherry Jones.
+        </p>
+        <p>
+          The original book by John D'Agata and Jim Fingal was named a
+          Top 10 Most Crucial Book by <em>Slate</em>, a Best Book of the Year
+          by <em>The Huffington Post</em>, and an Editor's Choice by
+          <em>The New York Times Book Review</em>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="page-footer">
+  <div class="brand">Blake <em>Hamman</em></div>
+  <div class="footer-links">
+    <a href="blake-hamman.html">Main Site</a>
+    <a href="blake-directing.html">Directing Portfolio</a>
+    <a href="blake-hamman.html#acting">Acting Credits</a>
+    <a href="blake-hamman.html#contact">Contact</a>
+  </div>
+  <p class="footer-copy">Director · Actor · Producer · San Antonio, TX</p>
+</footer>
+
+</body>
+</html>

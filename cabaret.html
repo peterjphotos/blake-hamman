@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cabaret — Blake Hamman · Directing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink:        #1a1714;
+      --paper:      #f5f0e8;
+      --cream:      #ede7d9;
+      --gold:       #b8933a;
+      --gold-lt:    #d4b06a;
+      --rust:       #8b3a2a;
+      --red:        #9b1c1c;
+      --muted:      #6b6258;
+      --rule:       rgba(26,23,20,.15);
+      --f-display:  'Cormorant Garamond', Georgia, serif;
+      --f-body:     'Jost', sans-serif;
+      --max:        1100px;
+      --gap:        clamp(2rem, 5vw, 5rem);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--f-body);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--ink); color: var(--paper);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem clamp(1.2rem, 4vw, 3rem);
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    }
+    nav a { opacity: .7; transition: opacity .2s; }
+    nav a:hover { opacity: 1; }
+    nav .brand { opacity: 1; font-weight: 500; font-size: .8rem; letter-spacing: .08em; }
+    nav .links { display: flex; gap: 2rem; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .hero-image { position: relative; overflow: hidden; }
+    .hero-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: contrast(1.08) saturate(.9);
+    }
+    .hero-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 55%, var(--ink) 100%);
+    }
+    .hero-text {
+      background: var(--ink);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: var(--gap) clamp(2rem, 5vw, 5rem) var(--gap) 3rem;
+    }
+    .hero-eyebrow {
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(3.5rem, 7vw, 7rem); line-height: .95; margin-bottom: .8rem;
+      color: var(--paper); letter-spacing: -.01em;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold-lt); }
+    .hero-sub {
+      font-family: var(--f-display); font-style: italic;
+      font-size: 1rem; color: rgba(245,240,232,.55); margin-bottom: 2rem;
+    }
+    .hero-meta {
+      display: flex; flex-direction: column; gap: .5rem;
+      border-left: 2px solid var(--gold); padding-left: 1.2rem; margin-bottom: 2.5rem;
+    }
+    .hero-meta span {
+      font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
+      color: rgba(245,240,232,.5);
+    }
+    .hero-meta strong { color: var(--paper); font-weight: 500; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+      border: 1px solid var(--gold); color: var(--gold);
+      padding: .35rem .8rem; border-radius: 2px;
+    }
+    .badge.filled { background: var(--gold); color: var(--ink); font-weight: 500; }
+
+    /* ── Shared ── */
+    .divider { width: 100%; height: 1px; background: var(--rule); }
+    .section-label {
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.2rem, 4vw, 3rem); }
+    section { padding: var(--gap) 0; }
+
+    /* ── Lead Review ── */
+    .lead-review {
+      background: var(--ink); color: var(--paper);
+    }
+    .lead-review .container {
+      padding-top: var(--gap); padding-bottom: var(--gap);
+      display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start;
+    }
+    .lead-review .section-label { color: var(--gold-lt); }
+    .lead-review h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.4rem, 2.5vw, 2rem); color: var(--paper); line-height: 1.2;
+      margin-bottom: .5rem;
+    }
+    .reviewer-name {
+      font-family: var(--f-display); font-size: 1.1rem; font-weight: 600;
+      color: var(--gold-lt); margin-bottom: .2rem;
+    }
+    .reviewer-cred {
+      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(245,240,232,.45); margin-bottom: 2rem; line-height: 1.6;
+    }
+    .review-text p {
+      font-size: .95rem; color: rgba(245,240,232,.78); margin-bottom: 1rem; max-width: 62ch;
+    }
+    .review-text p em { font-style: italic; color: var(--cream); }
+    .review-highlight {
+      font-family: var(--f-display); font-style: italic;
+      font-size: clamp(1.2rem, 2vw, 1.6rem); line-height: 1.5;
+      color: var(--cream);
+      border-left: 3px solid var(--gold);
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    /* ── Synopsis ── */
+    .synopsis-grid {
+      display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; align-items: start;
+    }
+    .synopsis-grid h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2; margin-bottom: 1.2rem;
+    }
+    .synopsis-grid h2 em { font-style: italic; color: var(--rust); }
+    .synopsis-grid p { font-size: 1rem; margin-bottom: 1rem; max-width: 58ch; }
+    .aside-card {
+      background: var(--cream); border-top: 3px solid var(--gold); padding: 2rem;
+    }
+    .aside-card h3 { font-family: var(--f-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; }
+    .aside-card dl { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1rem; font-size: .82rem; }
+    .aside-card dt { color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; padding-top: .15rem; }
+    .aside-card dd { color: var(--ink); }
+
+    /* ── Second Review ── */
+    .second-review { background: var(--cream); }
+    .second-review .container { padding-top: var(--gap); padding-bottom: var(--gap); }
+    .second-review h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.4rem, 2.5vw, 2rem); margin-bottom: .3rem;
+    }
+    .second-review-grid {
+      display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start;
+      margin-top: 2rem;
+    }
+    .second-reviewer-name {
+      font-family: var(--f-display); font-size: 1.1rem; font-weight: 600; margin-bottom: .2rem;
+    }
+    .second-reviewer-cred {
+      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem; line-height: 1.6;
+    }
+    .second-review-text p { font-size: .95rem; margin-bottom: 1rem; max-width: 60ch; }
+    .second-review-text p em { font-style: italic; }
+    blockquote.pull {
+      font-family: var(--f-display); font-style: italic;
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem); line-height: 1.55;
+      color: var(--ink);
+      border-left: 3px solid var(--gold); padding-left: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    /* ── Audience ── */
+    .audience-section { background: var(--ink); color: var(--paper); }
+    .audience-section .container { padding-top: var(--gap); padding-bottom: var(--gap); }
+    .audience-section .section-label { color: var(--gold-lt); }
+    .audience-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+      margin-top: 2rem; background: rgba(255,255,255,.06);
+    }
+    .audience-card {
+      background: var(--ink); padding: 2rem;
+      border-top: 2px solid rgba(184,147,58,.4);
+    }
+    blockquote.audience {
+      font-family: var(--f-display); font-style: italic;
+      font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.55;
+      color: var(--cream); margin-bottom: 1rem;
+    }
+    .audience-attr {
+      font-size: .67rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .audience-attr::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--gold-lt); }
+
+    /* ── Gallery ── */
+    .gallery-intro {
+      display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2rem;
+    }
+    .gallery-intro h2 {
+      font-family: var(--f-display); font-weight: 300; font-size: clamp(1.6rem, 3vw, 2.4rem);
+    }
+    .gallery-intro h2 em { font-style: italic; color: var(--rust); }
+    .gallery-credit { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 10px; }
+    .g-img { overflow: hidden; background: var(--cream); position: relative; }
+    .g-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s ease, filter .5s ease;
+    }
+    .g-img:hover img { transform: scale(1.03); }
+    .g-img.span-8  { grid-column: span 8;  aspect-ratio: 16/9; }
+    .g-img.span-4  { grid-column: span 4;  aspect-ratio: 4/5; }
+    .g-img.span-4h { grid-column: span 4;  aspect-ratio: 16/9; }
+    .g-img.span-6  { grid-column: span 6;  aspect-ratio: 4/3; }
+    .g-img.span-3  { grid-column: span 3;  aspect-ratio: 1; }
+
+    /* ── Statement ── */
+    .statement-section {
+      background: var(--ink); color: var(--paper);
+    }
+    .statement-section .container {
+      padding-top: var(--gap); padding-bottom: var(--gap);
+      display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start;
+    }
+    .statement-section .section-label { color: var(--gold-lt); }
+    .statement-section h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.4rem, 2.5vw, 2rem); color: var(--paper); line-height: 1.2;
+    }
+    blockquote.statement {
+      font-family: var(--f-display); font-style: italic;
+      font-size: clamp(1.1rem, 2vw, 1.5rem); line-height: 1.6;
+      color: var(--cream);
+      border-left: 3px solid var(--gold); padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .statement-body p {
+      font-size: .95rem; color: rgba(245,240,232,.75); margin-bottom: 1rem; max-width: 60ch;
+    }
+
+    /* ── Cast ── */
+    .cast-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem; margin-top: 2rem;
+    }
+    .cast-card { border-top: 2px solid var(--rule); padding-top: .8rem; }
+    .cast-card .character { font-family: var(--f-display); font-style: italic; font-size: 1rem; color: var(--rust); margin-bottom: .1rem; }
+    .cast-card .actor { font-size: .88rem; font-weight: 500; }
+    .cast-card .note { font-size: .7rem; color: var(--muted); }
+    .ensemble-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: .8rem; margin-top: 1.5rem;
+      border-top: 1px solid var(--rule); padding-top: 1.5rem;
+    }
+    .ensemble-item { font-size: .82rem; }
+    .ensemble-item .ens-role { font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .ensemble-item .ens-name { font-weight: 500; }
+
+    /* ── Creative Team ── */
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 2rem; margin-top: 2rem;
+    }
+    .team-item .role-label { font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
+    .team-item .name { font-family: var(--f-display); font-size: 1.05rem; font-weight: 600; }
+    .team-item .note { font-size: .7rem; color: var(--muted); }
+
+    /* ── Footer ── */
+    .page-footer {
+      background: var(--ink); color: var(--paper);
+      padding: 3rem clamp(1.2rem, 4vw, 3rem);
+      display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center;
+    }
+    .page-footer .brand { font-family: var(--f-display); font-size: 1.4rem; font-weight: 300; }
+    .page-footer .brand em { font-style: italic; color: var(--gold-lt); }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a {
+      font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(245,240,232,.55); transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--paper); }
+    .footer-copy { font-size: .68rem; color: rgba(245,240,232,.35); }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { height: 65vw; }
+      .hero-image::after { background: linear-gradient(to bottom, transparent 40%, var(--ink) 90%); }
+      .hero-text { padding: 2rem 1.5rem; }
+      .lead-review .container { grid-template-columns: 1fr; gap: 2rem; }
+      .synopsis-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .second-review-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .audience-grid { grid-template-columns: 1fr; }
+      .statement-section .container { grid-template-columns: 1fr; gap: 2rem; }
+      .g-img.span-8 { grid-column: span 12; }
+      .g-img.span-4, .g-img.span-4h { grid-column: span 6; }
+      .g-img.span-6 { grid-column: span 12; }
+      .g-img.span-3 { grid-column: span 6; }
+    }
+    @media (max-width: 520px) {
+      .g-img.span-4, .g-img.span-4h, .g-img.span-3 { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <a href="blake-hamman.html" class="brand">Blake Hamman</a>
+  <div class="links">
+    <a href="blake-hamman.html#acting">Acting</a>
+    <a href="blake-directing.html">Directing</a>
+    <a href="blake-hamman.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="hero-image">
+    <!-- Replace with best production photo filename -->
+    <img src="cabaret-1.jpg" alt="Cabaret — Wonder Theatre production photo" />
+  </div>
+  <div class="hero-text">
+    <p class="hero-eyebrow">Directing · Musical · 2026</p>
+    <h1><em>Cabaret</em></h1>
+    <p class="hero-sub">Music by John Kander · Lyrics by Fred Ebb<br>Book by Joe Masteroff · Based on Christopher Isherwood's Berlin Stories</p>
+
+    <div class="hero-meta">
+      <span><strong>Venue</strong> Wonder Theatre · Wonderland of the Americas · San Antonio, TX</span>
+      <span><strong>Run</strong> May 22 – June 14, 2026</span>
+      <span><strong>Produced by</strong> Wonder Theatre</span>
+    </div>
+
+    <div class="badge-row">
+      <span class="badge filled">"Best production of Cabaret I've ever seen."</span>
+      <span class="badge">Full Onstage Orchestra</span>
+      <span class="badge">Wonder Theatre · 2026</span>
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- ── Lead Review: Byrd Bonner ── -->
+<section class="lead-review">
+  <div class="container">
+    <div>
+      <p class="section-label">Critical Response</p>
+      <h2>A Review by<br><em>Byrd Bonner</em></h2>
+      <p class="reviewer-name">Byrd Bonner</p>
+      <p class="reviewer-cred">
+        Theatre artist &amp; critic<br>
+        2025 ATAC Jasmina Wellinghoff<br>Award for Special Contribution<br>to San Antonio Theatre
+      </p>
+    </div>
+    <div class="review-text">
+      <div class="review-highlight">
+        "Director Blake Hamman and his creative team do not intend it to be for the faint of heart.
+        Sexuality, politics and terror are palpable and all but explicit here."
+      </div>
+      <p>
+        Bonner — who has seen upwards of a dozen productions of <em>Cabaret</em> across his career —
+        praised the production for the clarity and ferocity of its political vision. He described
+        Katy Sisco's "What Would You Do?" as the climax of the production's arc and "the highlight
+        of the show," and singled out Jackson Gable's Emcee as embodying the required combination
+        of repulsion and seduction.
+      </p>
+      <p>
+        The staging of "Money" was called "the best in memory, superb and hitting every mark."
+        Alonzo Corona's choreography was described as "gymnastically degenerate and delightful —
+        but joyless. As it should be."
+      </p>
+      <p>
+        Bonner praised Blake's use of the ensemble, noting that "every chorus boy and girl, as
+        well as every randy sailor, have clearly defined characters." He highlighted Blake's
+        incorporation of anthropomorphic set elements and his handling of fight choreography by
+        Morgan Clyde as "gasp-inducing."
+      </p>
+      <p>
+        On the production's ambitions, Bonner wrote that the show "succeeds where some versions
+        of <em>Cabaret</em> do not: it puts us on notice and condemns political apathy" — placing
+        the production in direct lineage with Hal Prince's original 1966 Broadway vision.
+      </p>
+      <div class="review-highlight">
+        "In Hamman's director's notes he refers to the mirror of Cabaret… As I left the Wonder
+        I was thinking not of Weimar Germany, but of the air I was breathing."
+      </div>
+      <p style="font-size:.78rem; color:rgba(245,240,232,.4); margin-top:1rem;">
+        Facebook · Opening Night · May 2026
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Synopsis ── -->
+<section>
+  <div class="container">
+    <div class="synopsis-grid">
+      <div>
+        <p class="section-label">The Story</p>
+        <h2>Berlin, 1930. <em>Welcome to the Cabaret.</em></h2>
+        <p>
+          Weimar Germany. The Kit Kat Klub glitters with music, spectacle, and willful
+          forgetting. American writer Cliff Bradshaw arrives in Berlin and falls into its
+          orbit — the nightclub, the boarding house, the performer Sally Bowles, who lives
+          entirely in the present tense. The Emcee watches it all, narrating the descent.
+        </p>
+        <p>
+          As the political temperature rises outside, the Klub's lights burn brighter.
+          Fräulein Schneider and Herr Schultz find love against an increasingly hostile
+          backdrop. Sally chooses the show. Cliff chooses to leave. The Emcee remains.
+        </p>
+        <p>
+          The landmark 1966 musical — with its songs, its mirror, and its refusal to
+          comfort — has never been more urgent. This production does not look away.
+        </p>
+      </div>
+      <div>
+        <div class="aside-card">
+          <h3>Production Details</h3>
+          <dl>
+            <dt>Music</dt>
+            <dd>John Kander</dd>
+            <dt>Lyrics</dt>
+            <dd>Fred Ebb</dd>
+            <dt>Book</dt>
+            <dd>Joe Masteroff</dd>
+            <dt>Director</dt>
+            <dd>Blake Hamman</dd>
+            <dt>Venue</dt>
+            <dd>Wonder Theatre<br>Wonderland of the Americas<br>San Antonio, TX</dd>
+            <dt>Dates</dt>
+            <dd>May 22 – June 14, 2026</dd>
+            <dt>Producer</dt>
+            <dd>Wonder Theatre</dd>
+            <dt>Choreography</dt>
+            <dd>Alonzo Corona</dd>
+            <dt>Music Direction</dt>
+            <dd>Andrew Hendley</dd>
+            <dt>Set Design</dt>
+            <dd>Benjamin Grabill</dd>
+            <dt>Costume Design</dt>
+            <dd>Chris Munoz</dd>
+            <dt>Lighting</dt>
+            <dd>Nathan Thurman</dd>
+            <dt>Sound &amp; Projection</dt>
+            <dd>Benjamin Farrar</dd>
+            <dt>Fight / Intimacy</dt>
+            <dd>Morgan Clyde</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Second Review: Tim Hedgepeth ── -->
+<section class="second-review">
+  <div class="container">
+    <p class="section-label">Also Reviewed</p>
+    <div class="second-review-grid">
+      <div>
+        <p class="second-reviewer-name">Tim Hedgepeth</p>
+        <p class="second-reviewer-cred">
+          Theatre artist &amp; peer<br>
+          San Antonio theatre community<br>
+          Facebook · Opening Night · May 2026
+        </p>
+      </div>
+      <div class="second-review-text">
+        <blockquote class="pull">
+          "Earlier this season, the Wonder Theatre presented a smashing revival of
+          Sweeney Todd… Last night, again at the Wonder, I experienced the same kind
+          of thrill when Blake Hamman's company premiered a pretty damn glorious take
+          on Kander &amp; Ebb's Cabaret."
+        </blockquote>
+        <p>
+          Hedgepeth praised the production for bringing "raunch and rage plus a generous
+          splattering of Brecht to make even the most jaded playgoer take notice." He
+          highlighted Grace Lynn and Jackson Gable as embodying their characters with
+          "all the confidence, grit, and raw nerve required," and specifically praised
+          Blake's "surprising character twists for the Emcee."
+        </p>
+        <p>
+          He described Kayla Hernandez Friend's Fräulein Kost as earning "some extra
+          stage time" to notable effect, and praised the onstage orchestra as allowing
+          the audience to "hear the intricacies of the original score" from seven musicians.
+          He called Alonzo Corona's choreography "the best… to date — gymnastically
+          degenerate and delightful."
+        </p>
+        <p>
+          Hedgepeth closed by crediting Wonder Theatre artistic director Chris Rodriguez
+          for "bold risk-taking" in programming both this production and <em>Sweeney Todd</em>,
+          and situating the production alongside Hal Prince's original vision: a <em>Cabaret</em>
+          that "puts us on notice and condemns political apathy."
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Audience Quotes ── -->
+<section class="audience-section">
+  <div class="container">
+    <p class="section-label">Audience Response</p>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <blockquote class="audience">
+          "Best production of Cabaret I've ever seen."
+        </blockquote>
+        <div class="audience-attr">Audience · Wonder Theatre</div>
+      </div>
+      <div class="audience-card">
+        <blockquote class="audience">
+          "This was truly the best performance I've ever seen in theater. The acting,
+          singing, and dancing were amazing. I was utterly transported."
+        </blockquote>
+        <div class="audience-attr">Audience · Wonder Theatre</div>
+      </div>
+      <div class="audience-card">
+        <blockquote class="audience">
+          "So good. Seeing the band on stage makes it so much better."
+        </blockquote>
+        <div class="audience-attr">Audience · Wonder Theatre</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Gallery ── -->
+<section>
+  <div class="container">
+    <div class="gallery-intro">
+      <div>
+        <p class="section-label">Production Photography</p>
+        <h2>The <em>Production</em></h2>
+      </div>
+      <span class="gallery-credit">Photos: Jessica Mewborne / Mewborne Photography</span>
+    </div>
+
+    <div class="gallery-grid">
+      <!-- Replace cabaret-N.jpg with actual filenames -->
+      <div class="g-img span-8">
+        <img src="cabaret-1.jpg" alt="Cabaret — production" />
+      </div>
+      <div class="g-img span-4">
+        <img src="cabaret-2.jpg" alt="Cabaret — production" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="cabaret-3.jpg" alt="Cabaret — production photo 3" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="cabaret-4.jpg" alt="Cabaret — production photo 4" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="cabaret-5.jpg" alt="Cabaret — production photo 5" />
+      </div>
+      <div class="g-img span-3">
+        <img src="cabaret-6.jpg" alt="Cabaret — production photo 6" />
+      </div>
+      <div class="g-img span-3">
+        <img src="cabaret-7.jpg" alt="Cabaret — production photo 7" />
+      </div>
+      <div class="g-img span-3">
+        <img src="cabaret-8.jpg" alt="Cabaret — production photo 8" />
+      </div>
+      <div class="g-img span-3">
+        <img src="cabaret-9.jpg" alt="Cabaret — production photo 9" />
+      </div>
+      <div class="g-img span-6">
+        <img src="cabaret-10.jpg" alt="Cabaret — production photo 10" />
+      </div>
+      <div class="g-img span-6">
+        <img src="cabaret-11.jpg" alt="Cabaret — production photo 11" />
+      </div>
+    </div>
+    <p style="font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-top:1rem; text-align:right;">
+      <!-- Remove once photos are uploaded -->
+      Replace placeholder filenames (cabaret-1.jpg through -11.jpg) with actual filenames
+    </p>
+  </div>
+</section>
+
+<!-- ── Director's Statement ── -->
+<section class="statement-section">
+  <div class="container">
+    <div>
+      <p class="section-label">Director's Statement</p>
+      <h2>On Directing<br><em>Cabaret</em></h2>
+    </div>
+    <div class="statement-body">
+      <blockquote class="statement">
+        "Cabaret is a mirror. The question is whether the audience is willing to look into it."
+      </blockquote>
+      <p>
+        Every production of <em>Cabaret</em> is a political act. The show was written as one,
+        premiered as one, and has been revived as one ever since. The Emcee is not a host —
+        he is a diagnosis. The Kit Kat Klub is not an escape — it is the place we go to
+        avoid what's coming.
+      </p>
+      <p>
+        This production was made with a full onstage orchestra, a cast committed to the
+        full weight of the material, and a set — designed by Benjamin Grabill — that puts
+        the audience inside the maze of the boarding house and the Klub simultaneously.
+        The goal was to remove the distance between the audience and the story. To make
+        it impossible to watch from safety.
+      </p>
+      <p>
+        Christopher Isherwood wrote: "I am a camera with its shutter open, quite passive,
+        recording, not thinking." This production asked: what happens when the camera
+        turns around?
+      </p>
+      <p style="font-size:.8rem; color:rgba(245,240,232,.45); margin-top:1.5rem;">
+        — Blake Hamman, Director
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Cast ── -->
+<section>
+  <div class="container">
+    <p class="section-label">Company</p>
+    <h2 style="font-family:var(--f-display); font-weight:300; font-size:clamp(1.4rem,2.5vw,2rem); margin-bottom:.3rem;">
+      The <em style="font-style:italic; color:var(--rust);">Cast</em>
+    </h2>
+    <div class="cast-grid">
+      <div class="cast-card">
+        <p class="character">The Emcee</p>
+        <p class="actor">Jackson Gable</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Sally Bowles</p>
+        <p class="actor">Grace Lynn</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Cliff Bradshaw</p>
+        <p class="actor">Davis Hayes</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Fräulein Schneider</p>
+        <p class="actor">Katy Sisco</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Herr Schultz</p>
+        <p class="actor">DuWayne Greene</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Herr Ernst Ludwig</p>
+        <p class="actor">Kurt Robbins</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Fräulein Kost</p>
+        <p class="actor">Kayla Hernandez Friend</p>
+      </div>
+    </div>
+
+    <div class="ensemble-grid">
+      <div class="ensemble-item">
+        <p class="ens-role">Rosie</p>
+        <p class="ens-name">Andrea Porras</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Lulu</p>
+        <p class="ens-name">Maddison Peterson</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Frenchie</p>
+        <p class="ens-name">Caris Patrick</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Texas</p>
+        <p class="ens-name">Randee Nelson</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Fritzie</p>
+        <p class="ens-name">Dani Andrade</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Helga</p>
+        <p class="ens-name">AnaLisa Hernandez</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Bobby</p>
+        <p class="ens-name">Joshua Wayne Galbreath</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Victor / Officer</p>
+        <p class="ens-name">Noah Edwards</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Hans / Sailor / Gorilla</p>
+        <p class="ens-name">Guy Martin</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Hermann / Max</p>
+        <p class="ens-name">Alonzo Corona</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Kit Kat Girl Swing</p>
+        <p class="ens-name">Phoebe Arocho</p>
+      </div>
+      <div class="ensemble-item">
+        <p class="ens-role">Kit Kat Boy Swing</p>
+        <p class="ens-name">Ian Ortiz</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Creative Team ── -->
+<section>
+  <div class="container">
+    <p class="section-label">Creative Team</p>
+    <div class="team-grid">
+      <div class="team-item">
+        <p class="role-label">Direction</p>
+        <p class="name">Blake Hamman</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Choreography</p>
+        <p class="name">Alonzo Corona</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Music Direction</p>
+        <p class="name">Andrew Hendley</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Set Design</p>
+        <p class="name">Benjamin Grabill</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Costume Design</p>
+        <p class="name">Chris Munoz</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Wig &amp; Hair Design</p>
+        <p class="name">Sabrina Marie Rodriguez</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Lighting Design</p>
+        <p class="name">Nathan Thurman</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Sound &amp; Projection</p>
+        <p class="name">Benjamin Farrar</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Fight Choreography<br>&amp; Intimacy</p>
+        <p class="name">Morgan Clyde</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Prop Design</p>
+        <p class="name">Taylor James</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Scenic Artist</p>
+        <p class="name">Chris Rutz</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Stage Manager</p>
+        <p class="name">Olivia Perry</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Assistant Director</p>
+        <p class="name">Grantham Woods</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Production Photography</p>
+        <p class="name">Jessica Mewborne</p>
+        <p class="note">Mewborne Photography</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Produced By</p>
+        <p class="name">Wonder Theatre</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="page-footer">
+  <div class="brand">Blake <em>Hamman</em></div>
+  <div class="footer-links">
+    <a href="blake-hamman.html">Main Site</a>
+    <a href="blake-directing.html">Directing Portfolio</a>
+    <a href="blake-hamman.html#acting">Acting Credits</a>
+    <a href="blake-hamman.html#contact">Contact</a>
+  </div>
+  <p class="footer-copy">Director · Actor · Producer · San Antonio, TX</p>
+</footer>
+
+</body>
+</html>

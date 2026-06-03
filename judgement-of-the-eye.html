@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Judgement of the Eye — Blake Hamman · Directing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Tokens ─────────────────────────────────────────────── */
+    :root {
+      --ink:        #1a1714;
+      --paper:      #f5f0e8;
+      --cream:      #ede7d9;
+      --gold:       #b8933a;
+      --gold-lt:    #d4b06a;
+      --rust:       #8b3a2a;
+      --muted:      #6b6258;
+      --rule:       rgba(26,23,20,.15);
+
+      --f-display:  'Cormorant Garamond', Georgia, serif;
+      --f-body:     'Jost', sans-serif;
+
+      --max:        1100px;
+      --gap:        clamp(2rem, 5vw, 5rem);
+    }
+
+    /* ── Reset ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--f-body);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--ink);
+      color: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .9rem clamp(1.2rem, 4vw, 3rem);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    nav a { opacity: .7; transition: opacity .2s; }
+    nav a:hover { opacity: 1; }
+    nav .brand { opacity: 1; font-weight: 500; font-size: .8rem; letter-spacing: .08em; }
+    nav .links { display: flex; gap: 2rem; }
+
+    /* ── Hero ───────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(.18) contrast(1.05);
+      transition: transform 8s ease;
+    }
+    .hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--paper) 100%);
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--gap) clamp(2rem, 5vw, 5rem) var(--gap) 3rem;
+    }
+    .hero-eyebrow {
+      font-size: .7rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: var(--f-display);
+      font-weight: 300;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 1.05;
+      margin-bottom: .5rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--rust);
+    }
+    .hero-sub {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    .hero-meta span {
+      font-size: .78rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-meta strong { color: var(--ink); font-weight: 500; }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: .35rem .8rem;
+      border-radius: 2px;
+    }
+    .badge.filled {
+      background: var(--gold);
+      color: var(--paper);
+    }
+    .badge svg { width: 12px; height: 12px; fill: currentColor; }
+
+    /* ── Divider ────────────────────────────────────────────── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--rule);
+      margin: 0;
+    }
+    .section-label {
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Layout wrapper ─────────────────────────────────────── */
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 clamp(1.2rem, 4vw, 3rem);
+    }
+    section { padding: var(--gap) 0; }
+
+    /* ── Synopsis ───────────────────────────────────────────── */
+    .synopsis-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .synopsis-grid h2 {
+      font-family: var(--f-display);
+      font-weight: 300;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    .synopsis-grid h2 em { font-style: italic; color: var(--rust); }
+    .synopsis-grid p {
+      font-size: 1rem;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      max-width: 58ch;
+    }
+    .aside-card {
+      background: var(--cream);
+      border-top: 3px solid var(--gold);
+      padding: 2rem;
+    }
+    .aside-card h3 {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .aside-card dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: .4rem 1rem;
+      font-size: .82rem;
+    }
+    .aside-card dt {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: .68rem;
+      padding-top: .15rem;
+    }
+    .aside-card dd { color: var(--ink); }
+
+    /* ── Director's Statement ───────────────────────────────── */
+    .statement-section {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .statement-section .container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+      padding-top: var(--gap);
+      padding-bottom: var(--gap);
+    }
+    .statement-section .section-label { color: var(--gold-lt); }
+    .statement-section h2 {
+      font-family: var(--f-display);
+      font-weight: 300;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      line-height: 1.2;
+      color: var(--paper);
+    }
+    blockquote.statement {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: clamp(1.15rem, 2vw, 1.6rem);
+      line-height: 1.55;
+      color: var(--cream);
+      border-left: 3px solid var(--gold);
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .statement-body p {
+      font-size: .95rem;
+      color: rgba(245,240,232,.75);
+      margin-bottom: 1rem;
+      max-width: 60ch;
+    }
+
+    /* ── Photo Gallery ──────────────────────────────────────── */
+    .gallery-intro {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2rem;
+    }
+    .gallery-intro h2 {
+      font-family: var(--f-display);
+      font-weight: 300;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+    }
+    .gallery-intro h2 em { font-style: italic; color: var(--rust); }
+    .gallery-credit {
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 10px;
+    }
+    /* Placeholder slots — real images will fill these */
+    .g-img {
+      overflow: hidden;
+      background: var(--cream);
+      position: relative;
+    }
+    .g-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease, filter .5s ease;
+      filter: sepia(.1);
+    }
+    .g-img:hover img { transform: scale(1.03); filter: sepia(0); }
+
+    /* Layout: hero shot spans wide */
+    .g-img.span-8  { grid-column: span 8;  aspect-ratio: 16/9; }
+    .g-img.span-4  { grid-column: span 4;  aspect-ratio: 4/5; }
+    .g-img.span-4h { grid-column: span 4;  aspect-ratio: 16/9; }
+    .g-img.span-6  { grid-column: span 6;  aspect-ratio: 4/3; }
+    .g-img.span-3  { grid-column: span 3;  aspect-ratio: 1; }
+
+    /* ── Review ─────────────────────────────────────────────── */
+    .review-section {
+      background: var(--cream);
+    }
+    .review-section .container {
+      padding-top: var(--gap);
+      padding-bottom: var(--gap);
+    }
+    .review-card {
+      max-width: 740px;
+      margin: 2rem auto 0;
+    }
+    .review-stars {
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: .2em;
+      margin-bottom: 1rem;
+    }
+    blockquote.review {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+      line-height: 1.5;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+    .review-detail {
+      font-size: .9rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      max-width: 60ch;
+    }
+    .review-attribution {
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .review-attribution::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* ── Production notes ───────────────────────────────────── */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .notes-grid h2 {
+      font-family: var(--f-display);
+      font-weight: 300;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      margin-bottom: 1.2rem;
+    }
+    .notes-grid h2 em { font-style: italic; color: var(--rust); }
+    .notes-grid p {
+      font-size: .95rem;
+      margin-bottom: .9rem;
+      max-width: 54ch;
+    }
+    .playwright-card {
+      background: var(--cream);
+      border-top: 3px solid var(--rust);
+      padding: 2rem;
+    }
+    .playwright-card h3 {
+      font-family: var(--f-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+    .playwright-card .role {
+      font-size: .7rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 1rem;
+    }
+    .playwright-card p {
+      font-size: .88rem;
+      color: var(--muted);
+      margin-bottom: .8rem;
+    }
+    .award-list {
+      list-style: none;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+    .award-list li {
+      font-size: .78rem;
+      padding-left: 1.2rem;
+      position: relative;
+      color: var(--muted);
+    }
+    .award-list li::before {
+      content: '★';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: .65rem;
+      top: .1rem;
+    }
+    .award-list li strong { color: var(--ink); font-weight: 500; }
+
+    /* ── Cast ───────────────────────────────────────────────── */
+    .cast-section { border-top: 1px solid var(--rule); }
+    .cast-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .cast-card {
+      border-top: 2px solid var(--rule);
+      padding-top: .8rem;
+    }
+    .cast-card .character {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--rust);
+      margin-bottom: .1rem;
+    }
+    .cast-card .actor {
+      font-size: .85rem;
+      font-weight: 500;
+    }
+    .cast-card .note {
+      font-size: .72rem;
+      color: var(--muted);
+    }
+
+    /* ── Creative Team ──────────────────────────────────────── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .team-item .role-label {
+      font-size: .65rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .3rem;
+    }
+    .team-item .name {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* ── Footer nav ─────────────────────────────────────────── */
+    .page-footer {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 3rem clamp(1.2rem, 4vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .page-footer .brand {
+      font-family: var(--f-display);
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: .04em;
+    }
+    .page-footer .brand em { font-style: italic; color: var(--gold-lt); }
+    .page-footer nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-links a {
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.55);
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--paper); }
+    .footer-copy {
+      font-size: .68rem;
+      color: rgba(245,240,232,.35);
+    }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { height: 55vw; }
+      .hero-image::after { background: linear-gradient(to bottom, transparent 50%, var(--paper) 100%); }
+      .hero-text { padding: 2rem 1.5rem; }
+      .synopsis-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .statement-section .container { grid-template-columns: 1fr; gap: 2rem; }
+      .notes-grid { grid-template-columns: 1fr; }
+      .g-img.span-8 { grid-column: span 12; }
+      .g-img.span-4 { grid-column: span 6; }
+      .g-img.span-4h { grid-column: span 6; }
+      .g-img.span-6 { grid-column: span 12; }
+      .g-img.span-3 { grid-column: span 6; }
+    }
+    @media (max-width: 520px) {
+      .g-img.span-4, .g-img.span-4h, .g-img.span-3 { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ──────────────────────────────────────────────────── -->
+<nav>
+  <a href="blake-hamman.html" class="brand">Blake Hamman</a>
+  <div class="links">
+    <a href="blake-hamman.html#acting">Acting</a>
+    <a href="blake-directing.html">Directing</a>
+    <a href="blake-hamman.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-image">
+    <img src="judgement-of-the-eye.jpg" alt="Judgement of the Eye — production photo" />
+  </div>
+  <div class="hero-text">
+    <p class="hero-eyebrow">Directing · World Premiere · 2024</p>
+    <h1>Judgement<br>of the <em>Eye</em></h1>
+    <p class="hero-sub">A play by Simon Bowler Khan</p>
+
+    <div class="hero-meta">
+      <span><strong>Venue</strong> The Overtime Theater · San Antonio, TX</span>
+      <span><strong>Run</strong> August 16 – September 7, 2024</span>
+      <span><strong>Playwright</strong> Simon Bowler Khan</span>
+      <span><strong>Status</strong> Sold-Out Run · World Premiere</span>
+    </div>
+
+    <div class="badge-row">
+      <span class="badge filled">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        ATAC Globe · Outstanding Direction
+      </span>
+      <span class="badge filled">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        ATAC Globe · Outstanding Supporting Actress
+      </span>
+      <span class="badge">4 ATAC Nominations</span>
+      <span class="badge">World Premiere</span>
+      <span class="badge">Sold-Out Run</span>
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- ── Synopsis ──────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="synopsis-grid">
+      <div>
+        <p class="section-label">The Story</p>
+        <h2>Art, Forgery &amp; the <em>Price of Truth</em></h2>
+        <p>
+          Han Van Meegeren is a struggling Dutch artist who discovers he has an extraordinary gift —
+          not for original work, but for forgery. Selling fabricated masterworks to the tune of
+          $30 million, he builds a secret fortune, until World War II brings the Nazis to his door.
+        </p>
+        <p>
+          Compelled by the SS to sell paintings to Reichsmarschall Göring, Van Meegeren profits
+          further from the occupation. But at the war's end, he is arrested: accused not of forgery,
+          but of selling Dutch national treasure to the enemy — a crime punishable by death.
+        </p>
+        <p>
+          His only defense is to confess the truth. He painted them himself. To prove it, he must
+          paint a new Vermeer — in a jail cell, in four weeks, under the eyes of his accusers.
+        </p>
+        <p>
+          <em>A story so absurd, and with a character so flawed, it can only be true.</em>
+        </p>
+      </div>
+      <div>
+        <div class="aside-card">
+          <h3>Production Details</h3>
+          <dl>
+            <dt>Playwright</dt>
+            <dd>Simon Bowler Khan</dd>
+            <dt>Director</dt>
+            <dd>Blake Hamman</dd>
+            <dt>Venue</dt>
+            <dd>The Overtime Theater<br>San Antonio, TX</dd>
+            <dt>Dates</dt>
+            <dd>Aug 16 – Sep 7, 2024</dd>
+            <dt>Running Time</dt>
+            <dd>Approx. 90 minutes</dd>
+            <dt>Genre</dt>
+            <dd>Historical Drama</dd>
+            <dt>Premiere</dt>
+            <dd>World Premiere</dd>
+            <dt>Set Design</dt>
+            <dd>Jeanie De Leon</dd>
+            <dt>Costumes</dt>
+            <dd>Sara Brookes</dd>
+            <dt>Light Design</dt>
+            <dd>Peter J. Photos</dd>
+            <dt>Photos</dt>
+            <dd>Jessica Mewborne<br>Mewborne Photography</dd>
+            <dt>ATAC Wins</dt>
+            <dd>Outstanding Direction<br>Outstanding Supporting Actress</dd>
+            <dt>ATAC Nominated</dt>
+            <dd>Lighting Design · Peter J. Photos<br>Costume Design · Sara Brookes</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Director's Statement ──────────────────────────────────── -->
+<section class="statement-section">
+  <div class="container">
+    <div>
+      <p class="section-label">Director's Statement</p>
+      <h2>On Directing<br><em>Judgement of the Eye</em></h2>
+    </div>
+    <div class="statement-body">
+      <blockquote class="statement">
+        "The question that drove this production was simple: what does it cost a person
+        to be seen clearly — and what lengths will they go to avoid it?"
+      </blockquote>
+      <p>
+        Van Meegeren is one of the most compelling anti-heroes of the twentieth century, not
+        because he was evil, but because he was ordinary. He wanted recognition, dignity, and
+        survival — and found them all in deception. The play lives in that contradiction.
+      </p>
+      <p>
+        Working with designer Jeanie De Leon, we built the world of the play inside a literal
+        frame — the production set within the visual logic of the paintings at its center.
+        Every scene exists simultaneously as domestic reality and as artifice on display,
+        asking the audience to sit with the same discomfort Van Meegeren himself embodied:
+        <em>does it matter if beauty is real, if you cannot tell the difference?</em>
+      </p>
+      <p>
+        Bringing a new script to its world premiere is among the most exhilarating
+        challenges a director can face. There is no production history to defer to, no received
+        wisdom about how the play "goes." Simon Bowler Khan's script demanded that we find its
+        shape entirely in the room — through the actors, through the space, through the story's
+        own pressure. I am enormously proud of what this company made together.
+      </p>
+      <p style="font-size:.8rem; color: rgba(245,240,232,.45); margin-top:1.5rem;">
+        — Blake Hamman, Director
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Photo Gallery ──────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="gallery-intro">
+      <div>
+        <p class="section-label">Production Photography</p>
+        <h2>The <em>Production</em></h2>
+      </div>
+      <span class="gallery-credit">Photos: Mewborne Photography</span>
+    </div>
+
+    <div class="gallery-grid">
+      <!-- Primary hero shot -->
+      <div class="g-img span-8">
+        <img src="judgement-of-the-eye.jpg" alt="Judgement of the Eye — production" />
+      </div>
+      <!-- Vertical portrait -->
+      <div class="g-img span-4">
+        <img src="judgement-of-the-eye.jpg" alt="Judgement of the Eye — detail" />
+      </div>
+      <!-- Secondary row — replace src values with actual photo filenames -->
+      <div class="g-img span-4h">
+        <img src="judgement-of-the-eye.jpg" alt="Production photo 3" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="judgement-of-the-eye.jpg" alt="Production photo 4" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="judgement-of-the-eye.jpg" alt="Production photo 5" />
+      </div>
+      <!-- Bottom row -->
+      <div class="g-img span-6">
+        <img src="judgement-of-the-eye.jpg" alt="Production photo 6" />
+      </div>
+      <div class="g-img span-6">
+        <img src="judgement-of-the-eye.jpg" alt="Production photo 7" />
+      </div>
+    </div>
+    <p style="font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-top:1rem; text-align:right;">
+      Replace placeholder image paths with actual filenames once photos are uploaded
+    </p>
+  </div>
+</section>
+
+<!-- ── Press ──────────────────────────────────────────────────── -->
+<section class="review-section">
+  <div class="container">
+    <p class="section-label">Press &amp; Response</p>
+
+    <!-- BroadwayWorld lead -->
+    <div class="review-card" style="margin-bottom:2px;">
+      <div class="review-stars">★★★★★</div>
+      <blockquote class="review">
+        "Director Blake Hamman and the entire company should feel wildly proud of this
+        riveting and polished production!"
+      </blockquote>
+      <p class="review-detail">
+        The reviewer praised the set and lighting design for working "masterfully" together
+        to "create an atmosphere that closely followed the story, framing the characters in
+        the world of the play." The production's visual storytelling "had us walking through
+        it and talking through its moments for hours."
+      </p>
+      <div class="review-attribution">
+        Jill Ripa · BroadwayWorld San Antonio · August 27, 2024
+      </div>
+    </div>
+
+    <!-- News 4 SA -->
+    <div class="review-card" style="margin-bottom:2px; margin-top:2px;">
+      <p class="review-detail" style="margin-bottom:.6rem;">
+        News 4 San Antonio covered the production, describing it as a story that
+        "exposes the contradictions of how we perceive and value art, in a tale
+        so absurd, and with a character so flawed, it can only be true."
+      </p>
+      <div class="review-attribution">
+        News 4 San Antonio · Television Coverage · 2024
+      </div>
+    </div>
+
+    <!-- Tim Hedgepeth preview -->
+    <div class="review-card" style="margin-bottom:2px; margin-top:2px;">
+      <blockquote class="review">
+        "A creative, smart, and fast-moving production of an intriguing script.
+        Excellent staging, a creative design concept, and committed performances
+        by its cast."
+      </blockquote>
+      <p class="review-detail">
+        Hedgepeth praised the production's handling of "hefty themes including truth and beauty
+        and the always popular selling one's soul to the highest bidder," and noted that the
+        "surprisingly touching conclusion" stayed with him the following morning. He returned
+        to see the production a second time at closing weekend.
+      </p>
+      <div class="review-attribution">
+        Tim Hedgepeth · San Antonio theatre artist · Facebook · August 2024
+      </div>
+    </div>
+
+    <!-- Peer / audience responses grid -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:2px;">
+      <div class="review-card">
+        <blockquote class="review" style="font-size:.95rem;">
+          "A night of pure storytelling at its finest… Bravo to the director for bringing
+          together a beautifully cohesive piece of artwork that also had a very poignant message."
+        </blockquote>
+        <div class="review-attribution">L. Garza · Audience</div>
+      </div>
+      <div class="review-card">
+        <blockquote class="review" style="font-size:.95rem;">
+          "I felt part of the masterpieces he was creating. Like art does, it broadened
+          my mind to see things from the artist's point of view and even question my
+          own moral compass."
+        </blockquote>
+        <div class="review-attribution">R. Werner · Audience</div>
+      </div>
+      <div class="review-card">
+        <blockquote class="review" style="font-size:.95rem;">
+          "Simon Bowler Khan was over the moon with this company's rendition of the
+          worldwide premiere of his play. Amazing acting, sets, and costumes."
+        </blockquote>
+        <div class="review-attribution">Pamela Perez · Opening Night · Facebook</div>
+      </div>
+      <div class="review-card">
+        <blockquote class="review" style="font-size:.95rem;">
+          "It's a creative, smart, and fast-moving production. I really want to see it again."
+        </blockquote>
+        <div class="review-attribution">Tim Hedgepeth · Facebook · After Preview Performance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Production Notes / Playwright ─────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="notes-grid">
+      <div>
+        <p class="section-label">About the Production</p>
+        <h2>New Work &amp; <em>World Premiere</em></h2>
+        <p>
+          <em>Judgement of the Eye</em> arrived at The Overtime Theater as its world
+          premiere — the first professional staging of Simon Bowler Khan's script anywhere
+          in the world. The production ran to a sold-out house across its three-week run in
+          August and September 2024.
+        </p>
+        <p>
+          The production earned four ATAC Globe nominations at the 33rd annual ceremony
+          in November 2024, winning two: Outstanding Direction of a Drama (tied with
+          <em>A Raisin in the Sun</em> at Classic Theatre) and Outstanding Supporting
+          Actress in a Drama for Lucy Perez as Lotte. Lighting designer Peter J. Photos
+          and costume designer Sara Brookes were also nominated in their respective
+          categories — an exceptional showing for an independent theater doing a
+          world premiere.
+        </p>
+        <p>
+          Since this premiere, the script has continued to gain momentum: it has received
+          staged readings at the Phoenix Theatre New Play Festival (2025) and the Long Beach
+          Playhouse New Theatre Festival (2025), and was a finalist at the New York
+          International Theater Competition (2024).
+        </p>
+      </div>
+      <div>
+        <div class="playwright-card">
+          <h3>Simon Bowler Khan</h3>
+          <p class="role">Playwright</p>
+          <p>
+            A playwright, screenwriter, and producer. His television and documentary career
+            spans the BBC, Channel 4, ABC, PBS, Discovery, Fox, Bravo, and OWN. He holds
+            a BA Honors in Film &amp; TV from the University of Westminster, London, and
+            an Associate Degree in Law from UCLA.
+          </p>
+          <p style="font-size:.78rem; color:var(--muted); font-weight:500; margin-bottom:.4rem;">
+            Awards for <em>Judgement of the Eye</em>:
+          </p>
+          <ul class="award-list">
+            <li><strong>Beverly Hills Theatre Guild</strong> · Julie Harris Award</li>
+            <li><strong>Sultan Padamsee</strong> · Playwriting Award</li>
+            <li><strong>Broadway Bound Festival</strong> · Winner</li>
+            <li><strong>Pharmacy Theatre</strong> · New Writers Winner</li>
+            <li><strong>Wishbone Theater</strong> · Winner</li>
+            <li><strong>Paragon Press</strong> · Winner</li>
+            <li><strong>NY ITC</strong> · 2024 Finalist</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Cast ───────────────────────────────────────────────────── -->
+<section class="cast-section">
+  <div class="container">
+    <p class="section-label">Company</p>
+    <h2 style="font-family:var(--f-display); font-weight:300; font-size:clamp(1.4rem,2.5vw,2rem); margin-bottom:.5rem;">
+      The <em style="font-style:italic; color:var(--rust);">Cast</em>
+    </h2>
+    <div class="cast-grid">
+      <div class="cast-card">
+        <p class="character">Han Van Meegeren</p>
+        <p class="actor">Joshua Davis</p>
+        <p class="note">Lead</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Jo Van Meegeren</p>
+        <p class="actor">Jennifer Ortega</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Lotte</p>
+        <p class="actor">Lucy Perez</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Inspector Wooning</p>
+        <p class="actor">Ahmed Hussain</p>
+      </div>
+    </div>
+    <p style="font-size:.75rem; color:var(--muted); margin-top:1.5rem;">
+      Full cast and crew credits available upon request.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Creative Team ──────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <p class="section-label">Creative Team</p>
+    <div class="team-grid">
+      <div class="team-item">
+        <p class="role-label">Direction</p>
+        <p class="name">Blake Hamman</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Set Design</p>
+        <p class="name">Jeanie De Leon</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Costume Design</p>
+        <p class="name">Sara Brookes</p>
+        <p style="font-size:.72rem;color:var(--gold);">ATAC Nominated</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Lighting Design</p>
+        <p class="name">Peter J. Photos</p>
+        <p style="font-size:.72rem;color:var(--gold);">ATAC Nominated</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Production Photography</p>
+        <p class="name">Jessica Mewborne</p>
+        <p style="font-size:.72rem;color:var(--muted);">Mewborne Photography</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Stage Manager</p>
+        <p class="name">Grantham Woods</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Presented By</p>
+        <p class="name">The Overtime Theater</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer class="page-footer">
+  <div class="brand">Blake <em>Hamman</em></div>
+  <div class="footer-links">
+    <a href="blake-hamman.html">Main Site</a>
+    <a href="blake-directing.html">Directing Portfolio</a>
+    <a href="blake-hamman.html#acting">Acting Credits</a>
+    <a href="blake-hamman.html#contact">Contact</a>
+  </div>
+  <p class="footer-copy">Director · Actor · Producer · San Antonio, TX</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lend Me a Tenor — Blake Hamman · Directing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink:        #1a1714;
+      --paper:      #f5f0e8;
+      --cream:      #ede7d9;
+      --gold:       #b8933a;
+      --gold-lt:    #d4b06a;
+      --rust:       #8b3a2a;
+      --muted:      #6b6258;
+      --rule:       rgba(26,23,20,.15);
+      --f-display:  'Cormorant Garamond', Georgia, serif;
+      --f-body:     'Jost', sans-serif;
+      --max:        1100px;
+      --gap:        clamp(2rem, 5vw, 5rem);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--f-body);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--ink); color: var(--paper);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem clamp(1.2rem, 4vw, 3rem);
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    }
+    nav a { opacity: .7; transition: opacity .2s; }
+    nav a:hover { opacity: 1; }
+    nav .brand { opacity: 1; font-weight: 500; font-size: .8rem; letter-spacing: .08em; }
+    nav .links { display: flex; gap: 2rem; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .hero-image { position: relative; overflow: hidden; }
+    .hero-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: sepia(.12) contrast(1.05);
+    }
+    .hero-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--paper) 100%);
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: var(--gap) clamp(2rem, 5vw, 5rem) var(--gap) 3rem;
+    }
+    .hero-eyebrow {
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(2.6rem, 4.5vw, 4.6rem); line-height: 1.05; margin-bottom: .5rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--rust); }
+    .hero-sub {
+      font-family: var(--f-display); font-style: italic;
+      font-size: 1.1rem; color: var(--muted); margin-bottom: 2rem;
+    }
+    .hero-meta {
+      display: flex; flex-direction: column; gap: .5rem;
+      border-left: 2px solid var(--gold); padding-left: 1.2rem; margin-bottom: 2.5rem;
+    }
+    .hero-meta span {
+      font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted);
+    }
+    .hero-meta strong { color: var(--ink); font-weight: 500; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+      border: 1px solid var(--gold); color: var(--gold);
+      padding: .35rem .8rem; border-radius: 2px;
+    }
+    .badge.filled { background: var(--gold); color: var(--paper); }
+
+    /* ── Shared layout ── */
+    .divider { width: 100%; height: 1px; background: var(--rule); }
+    .section-label {
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.2rem, 4vw, 3rem); }
+    section { padding: var(--gap) 0; }
+
+    /* ── Concept feature ── */
+    .concept-section { background: var(--ink); color: var(--paper); }
+    .concept-section .container {
+      padding-top: var(--gap); padding-bottom: var(--gap);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .concept-section .section-label { color: var(--gold-lt); }
+    .concept-section h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1.15; color: var(--paper);
+      margin-bottom: 1.2rem;
+    }
+    .concept-section h2 em { font-style: italic; color: var(--gold-lt); }
+    .concept-section p {
+      font-size: .95rem; color: rgba(245,240,232,.75); margin-bottom: 1rem; max-width: 52ch;
+    }
+    .concept-section p strong { color: var(--paper); font-weight: 500; }
+    .concept-visual {
+      position: relative;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(184,147,58,.3);
+      padding: 2.5rem;
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+    .concept-visual::before {
+      content: '\201C';
+      font-family: var(--f-display);
+      font-size: 8rem; line-height: 1;
+      color: rgba(184,147,58,.2);
+      position: absolute; top: -1rem; left: 1rem;
+    }
+    .concept-quote {
+      font-family: var(--f-display); font-style: italic;
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem); line-height: 1.5;
+      color: var(--cream);
+    }
+    .concept-attr {
+      font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--gold-lt);
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .concept-attr::before {
+      content: ''; display: block; width: 2rem; height: 1px; background: var(--gold-lt);
+    }
+
+    /* ── Synopsis ── */
+    .synopsis-grid {
+      display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; align-items: start;
+    }
+    .synopsis-grid h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2; margin-bottom: 1.2rem;
+    }
+    .synopsis-grid h2 em { font-style: italic; color: var(--rust); }
+    .synopsis-grid p { font-size: 1rem; margin-bottom: 1rem; max-width: 58ch; }
+    .aside-card {
+      background: var(--cream); border-top: 3px solid var(--gold); padding: 2rem;
+    }
+    .aside-card h3 { font-family: var(--f-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; }
+    .aside-card dl { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1rem; font-size: .82rem; }
+    .aside-card dt { color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; padding-top: .15rem; }
+    .aside-card dd { color: var(--ink); }
+
+    /* ── Statement ── */
+    .statement-section { background: var(--cream); }
+    .statement-section .container { padding-top: var(--gap); padding-bottom: var(--gap); }
+    blockquote.statement {
+      font-family: var(--f-display); font-style: italic;
+      font-size: clamp(1.1rem, 2vw, 1.5rem); line-height: 1.6;
+      color: var(--ink);
+      border-left: 3px solid var(--gold); padding-left: 2rem;
+      max-width: 720px; margin: 1.5rem 0;
+    }
+    .statement-body p { font-size: .95rem; color: var(--ink); margin-bottom: 1rem; max-width: 60ch; }
+
+    /* ── Gallery ── */
+    .gallery-intro {
+      display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2rem;
+    }
+    .gallery-intro h2 {
+      font-family: var(--f-display); font-weight: 300; font-size: clamp(1.6rem, 3vw, 2.4rem);
+    }
+    .gallery-intro h2 em { font-style: italic; color: var(--rust); }
+    .gallery-credit { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(12, 1fr); gap: 10px;
+    }
+    .g-img { overflow: hidden; background: var(--cream); position: relative; }
+    .g-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s ease, filter .5s ease; filter: sepia(.08);
+    }
+    .g-img:hover img { transform: scale(1.03); filter: sepia(0); }
+    .g-img.span-8  { grid-column: span 8;  aspect-ratio: 16/9; }
+    .g-img.span-4  { grid-column: span 4;  aspect-ratio: 4/5; }
+    .g-img.span-4h { grid-column: span 4;  aspect-ratio: 16/9; }
+    .g-img.span-6  { grid-column: span 6;  aspect-ratio: 4/3; }
+    .g-img.span-3  { grid-column: span 3;  aspect-ratio: 1; }
+
+    /* ── Reviews ── */
+    .reviews-section { background: var(--ink); color: var(--paper); }
+    .reviews-section .container { padding-top: var(--gap); padding-bottom: var(--gap); }
+    .reviews-section .section-label { color: var(--gold-lt); }
+    .reviews-section h2 {
+      font-family: var(--f-display); font-weight: 300;
+      font-size: clamp(1.4rem, 2.5vw, 2rem); color: var(--paper); margin-bottom: 2.5rem;
+    }
+    .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .review-card {
+      background: rgba(255,255,255,.04);
+      border-top: 2px solid rgba(184,147,58,.4);
+      padding: 2rem;
+    }
+    .review-card.featured {
+      grid-column: span 2;
+      background: rgba(255,255,255,.07);
+      border-top-color: var(--gold);
+    }
+    blockquote.review {
+      font-family: var(--f-display); font-style: italic;
+      font-size: clamp(1rem, 1.8vw, 1.35rem); line-height: 1.55;
+      color: var(--cream); margin-bottom: 1rem;
+    }
+    .review-card.featured blockquote.review { font-size: clamp(1.1rem, 2vw, 1.55rem); }
+    .review-attr {
+      font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; color: var(--gold-lt);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .review-attr::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--gold-lt); }
+    .review-note { font-size: .8rem; color: rgba(245,240,232,.55); margin-bottom: 1rem; max-width: 54ch; }
+
+    /* ── Cast ── */
+    .cast-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem; margin-top: 2rem;
+    }
+    .cast-card { border-top: 2px solid var(--rule); padding-top: .8rem; }
+    .cast-card .character { font-family: var(--f-display); font-style: italic; font-size: 1rem; color: var(--rust); margin-bottom: .1rem; }
+    .cast-card .actor { font-size: .85rem; font-weight: 500; }
+    .cast-card .note { font-size: .72rem; color: var(--muted); }
+    .understudy-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem; margin-top: 1.5rem;
+      border-top: 1px solid var(--rule); padding-top: 1.5rem;
+    }
+    .us-item { font-size: .82rem; }
+    .us-item .us-name { font-weight: 500; }
+    .us-item .us-roles { color: var(--muted); font-size: .75rem; }
+
+    /* ── Creative Team ── */
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem; margin-top: 2rem;
+    }
+    .team-item .role-label { font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
+    .team-item .name { font-family: var(--f-display); font-size: 1.1rem; font-weight: 600; }
+    .team-item .note { font-size: .72rem; color: var(--muted); }
+
+    /* ── Footer ── */
+    .page-footer {
+      background: var(--ink); color: var(--paper);
+      padding: 3rem clamp(1.2rem, 4vw, 3rem);
+      display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center;
+    }
+    .page-footer .brand { font-family: var(--f-display); font-size: 1.4rem; font-weight: 300; }
+    .page-footer .brand em { font-style: italic; color: var(--gold-lt); }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a {
+      font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(245,240,232,.55); transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--paper); }
+    .footer-copy { font-size: .68rem; color: rgba(245,240,232,.35); }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { height: 55vw; }
+      .hero-image::after { background: linear-gradient(to bottom, transparent 50%, var(--paper) 100%); }
+      .hero-text { padding: 2rem 1.5rem; }
+      .synopsis-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .concept-section .container { grid-template-columns: 1fr; gap: 2rem; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .review-card.featured { grid-column: span 1; }
+      .g-img.span-8 { grid-column: span 12; }
+      .g-img.span-4, .g-img.span-4h { grid-column: span 6; }
+      .g-img.span-6 { grid-column: span 12; }
+      .g-img.span-3 { grid-column: span 6; }
+    }
+    @media (max-width: 520px) {
+      .g-img.span-4, .g-img.span-4h, .g-img.span-3 { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <a href="blake-hamman.html" class="brand">Blake Hamman</a>
+  <div class="links">
+    <a href="blake-hamman.html#acting">Acting</a>
+    <a href="blake-directing.html">Directing</a>
+    <a href="blake-hamman.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="hero-image">
+    <img src="lend-me-a-tenor-1.jpg" alt="Lend Me a Tenor — production photo" />
+  </div>
+  <div class="hero-text">
+    <p class="hero-eyebrow">Directing · Farce · 2026</p>
+    <h1>Lend Me<br>a <em>Tenor</em></h1>
+    <p class="hero-sub">A play by Ken Ludwig</p>
+
+    <div class="hero-meta">
+      <span><strong>Venue</strong> Woodlawn Pointe · San Antonio, TX</span>
+      <span><strong>Run</strong> March 19 – 29, 2026</span>
+      <span><strong>Playwright</strong> Ken Ludwig</span>
+      <span><strong>Produced by</strong> La Bête Productions</span>
+    </div>
+
+    <div class="badge-row">
+      <span class="badge filled">Tony Award–Winning Play</span>
+      <span class="badge">Immersive Staging</span>
+      <span class="badge">La Bête Productions</span>
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- ── Concept Feature ── -->
+<section class="concept-section">
+  <div class="container">
+    <div>
+      <p class="section-label">Production Concept</p>
+      <h2>The Audience<br>Checked <em>Into the Hotel</em></h2>
+      <p>
+        The central directorial challenge of any farce is the door. Every entrance, every
+        exit, every near-miss depends on the audience's absolute belief in the physical
+        world of the play. For this production, Blake took that logic to its conclusion:
+        <strong>the entire Woodlawn Pointe black box became the hotel suite.</strong>
+      </p>
+      <p>
+        Audiences entered the theater through the doors of the Cleveland Majestic Hotel —
+        not through a lobby into a theater, but directly into the world of the play. The set
+        extended well into the audience seating area. They were not watching guests arrive
+        at the hotel. They were sitting in it.
+      </p>
+      <p>
+        This immersive environment — designed by Peter J. Photos — meant that every
+        mistaken identity, every slammed door, every desperate disguise happened within
+        arm's reach. The chaos was not onstage. It was in the room.
+      </p>
+    </div>
+    <div class="concept-visual">
+      <p class="concept-quote">
+        "They're going to feel they're in on the experience the moment they walk
+        into the building."
+      </p>
+      <div class="concept-attr">Blake Hamman · Director</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Synopsis ── -->
+<section>
+  <div class="container">
+    <div class="synopsis-grid">
+      <div>
+        <p class="section-label">The Story</p>
+        <h2>Opera, Chaos &amp; the <em>Art of the Cover-Up</em></h2>
+        <p>
+          Cleveland, 1934. The world's greatest tenor — the legendary Tito Merelli — has
+          arrived for a one-night gala performance of Otello. But a domestic catastrophe
+          leaves him incapacitated just hours before curtain, and desperate opera director
+          Saunders has only one solution: get his mild-mannered assistant Max into a costume
+          and hope nobody notices.
+        </p>
+        <p>
+          Somebody notices. Everybody notices. And everyone has a reason to pretend they
+          don't. Ken Ludwig's Tony Award–winning farce builds from mistaken identity to
+          full operatic pandemonium — a precision machine of slammed doors, romantic
+          entanglements, and increasingly elaborate deceptions.
+        </p>
+        <p>
+          <em>Packed with physical comedy, rapid-fire entrances and exits, and
+          larger-than-life characters — a classic comedy about ambition, ego, and the
+          thin line between disaster and triumph.</em>
+        </p>
+      </div>
+      <div>
+        <div class="aside-card">
+          <h3>Production Details</h3>
+          <dl>
+            <dt>Playwright</dt>
+            <dd>Ken Ludwig</dd>
+            <dt>Director</dt>
+            <dd>Blake Hamman</dd>
+            <dt>Venue</dt>
+            <dd>Woodlawn Pointe<br>702 Donaldson Ave<br>San Antonio, TX</dd>
+            <dt>Dates</dt>
+            <dd>Mar 19–22, 25–29, 2026</dd>
+            <dt>Genre</dt>
+            <dd>Farce / Comedy</dd>
+            <dt>Original Play</dt>
+            <dd>Tony Award Winner · 1989</dd>
+            <dt>Set Design</dt>
+            <dd>Peter J. Photos</dd>
+            <dt>Lighting</dt>
+            <dd>Jorge Rebolledo</dd>
+            <dt>Costumes</dt>
+            <dd>Blake Hamman<br><span style="font-size:.78rem;color:var(--muted);">w/ Sara Brookes</span></dd>
+            <dt>Photography</dt>
+            <dd>Jessica Mewborne<br>Mewborne Photography</dd>
+            <dt>Producer</dt>
+            <dd>La Bête Productions</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Director's Statement ── -->
+<section class="statement-section">
+  <div class="container">
+    <p class="section-label">Director's Statement</p>
+    <h2 style="font-family:var(--f-display); font-weight:300; font-size:clamp(1.6rem,3vw,2.4rem); margin-bottom:.5rem;">
+      On Directing <em style="font-style:italic; color:var(--rust);">Lend Me a Tenor</em>
+    </h2>
+    <blockquote class="statement">
+      "This has always been one of my favorite comedies. A revival of Ken Ludwig's work
+      is overdue in San Antonio."
+    </blockquote>
+    <div class="statement-body">
+      <p>
+        Farce is the most democratic of theatrical forms — it asks nothing of its audience
+        except the willingness to surrender to chaos. But backstage, it demands everything.
+        The comedy lives or dies on precision: a door opened one beat too late, a look held
+        one second too long, and the whole edifice collapses. It is, in that sense, the
+        most rigorous directing challenge in the repertoire.
+      </p>
+      <p>
+        The decision to make the staging immersive was not a gimmick — it was a response
+        to the material. Farce depends on the audience's complicity. They need to feel
+        the stakes, to hold their breath when the wrong person is about to open the right
+        door. Putting them inside the hotel suite made that complicity physical. There was
+        nowhere to watch from a safe distance. They were in the room.
+      </p>
+      <p>
+        The result was a production that felt both classic and completely alive — which,
+        for a play written nearly forty years ago, is exactly what a revival should be.
+      </p>
+      <p style="font-size:.8rem; color:var(--muted); margin-top:1.5rem;">— Blake Hamman, Director</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Gallery ── -->
+<section>
+  <div class="container">
+    <div class="gallery-intro">
+      <div>
+        <p class="section-label">Production Photography</p>
+        <h2>The <em>Production</em></h2>
+      </div>
+      <span class="gallery-credit">Photos: Jessica Mewborne / Mewborne Photography</span>
+    </div>
+
+    <div class="gallery-grid">
+      <!-- Slots: replace lend-me-a-tenor-N.jpg with actual filenames -->
+      <div class="g-img span-8">
+        <img src="lend-me-a-tenor-1.jpg" alt="Lend Me a Tenor — production" />
+      </div>
+      <div class="g-img span-4">
+        <img src="lend-me-a-tenor-2.jpg" alt="Lend Me a Tenor — production" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="lend-me-a-tenor-3.jpg" alt="Lend Me a Tenor — production photo 3" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="lend-me-a-tenor-4.jpg" alt="Lend Me a Tenor — production photo 4" />
+      </div>
+      <div class="g-img span-4h">
+        <img src="lend-me-a-tenor-5.jpg" alt="Lend Me a Tenor — production photo 5" />
+      </div>
+      <div class="g-img span-6">
+        <img src="lend-me-a-tenor-6.jpg" alt="Lend Me a Tenor — production photo 6" />
+      </div>
+      <div class="g-img span-3">
+        <img src="lend-me-a-tenor-7.jpg" alt="Lend Me a Tenor — production photo 7" />
+      </div>
+      <div class="g-img span-3">
+        <img src="lend-me-a-tenor-8.jpg" alt="Lend Me a Tenor — production photo 8" />
+      </div>
+      <div class="g-img span-6">
+        <img src="lend-me-a-tenor-9.jpg" alt="Lend Me a Tenor — production photo 9" />
+      </div>
+      <div class="g-img span-6">
+        <img src="lend-me-a-tenor-10.jpg" alt="Lend Me a Tenor — production photo 10" />
+      </div>
+    </div>
+    <p style="font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-top:1rem; text-align:right;">
+      <!-- Remove this line once photos are uploaded -->
+      Replace placeholder filenames (lend-me-a-tenor-3.jpg through -10.jpg) with actual filenames
+    </p>
+  </div>
+</section>
+
+<!-- ── Reviews ── -->
+<section class="reviews-section">
+  <div class="container">
+    <p class="section-label">Audience Response</p>
+    <h2 style="font-family:var(--f-display); font-weight:300; font-size:clamp(1.4rem,2.5vw,2rem); color:var(--paper);">
+      What San Antonio <em style="font-style:italic; color:var(--gold-lt);">Said</em>
+    </h2>
+
+    <div class="reviews-grid">
+      <!-- Featured lead review -->
+      <div class="review-card featured">
+        <blockquote class="review">
+          "Big-hearted, expertly paced farce — smart, joyful, and unapologetically funny.
+          The laughs are earned, the chaos is beautifully controlled, and the audience is
+          invited along for every twist and turn. It's the kind of production that reminds
+          you why live comedy is such a gift."
+        </blockquote>
+        <p class="review-note">
+          The reviewer also praised the clarity of storytelling and the generosity of the
+          ensemble, noting it was "very exciting to see this new company flourish."
+        </p>
+        <div class="review-attr">Rick Frederick · 100A Productions at the Tobin Center · Facebook</div>
+      </div>
+
+      <!-- Secondary reviews -->
+      <div class="review-card">
+        <blockquote class="review">
+          "A truly delightful production, with beautiful designs and perfectly staged
+          madcap energy courtesy of a cast comprised of the most talented lunatics in town.
+          Laughter really is the best medicine."
+        </blockquote>
+        <div class="review-attr">Tim Hedgepeth · Facebook</div>
+      </div>
+
+      <div class="review-card">
+        <blockquote class="review">
+          "THE FUNNIEST SHOW I'VE SEEN IN A LONG TIME. I haven't laughed out loud in a
+          show in a while — needed that. Cast, crew, set, tech was great. La Bête
+          Productions has really done amazing work with the Woodlawn Pointe space.
+          Truly transformed."
+        </blockquote>
+        <div class="review-attr">Campbell Reid Andrews · Facebook</div>
+      </div>
+
+      <div class="review-card">
+        <blockquote class="review">
+          "Hilarious comedy of errors. This cast, crew and creative team deserve a huge
+          standing ovation — which they got. It's a must for the season."
+        </blockquote>
+        <div class="review-attr">Pamela Perez · Facebook</div>
+      </div>
+
+      <div class="review-card">
+        <blockquote class="review">
+          "This show is not to be missed — seriously hilarious and so well done."
+        </blockquote>
+        <div class="review-attr">Karen Ross Garrett · Facebook</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Cast ── -->
+<section>
+  <div class="container">
+    <p class="section-label">Company</p>
+    <h2 style="font-family:var(--f-display); font-weight:300; font-size:clamp(1.4rem,2.5vw,2rem); margin-bottom:.3rem;">
+      The <em style="font-style:italic; color:var(--rust);">Cast</em>
+    </h2>
+
+    <div class="cast-grid">
+      <div class="cast-card">
+        <p class="character">Max</p>
+        <p class="actor">Davis Hayes</p>
+        <p class="note">Lead</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Maggie</p>
+        <p class="actor">Brooke Arnold</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Saunders</p>
+        <p class="actor">DuWayne Greene</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Tito Merelli</p>
+        <p class="actor">Ivan Ortega</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Maria</p>
+        <p class="actor">Dani Andrade</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Diana</p>
+        <p class="actor">Nicole Rey Phoenix</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Julia</p>
+        <p class="actor">Katy Sisco</p>
+      </div>
+      <div class="cast-card">
+        <p class="character">Bellhop</p>
+        <p class="actor">Jackson Gable</p>
+      </div>
+    </div>
+
+    <div class="understudy-grid">
+      <div class="us-item">
+        <p class="us-name">Noah Edwards</p>
+        <p class="us-roles">U/S Bellhop</p>
+      </div>
+      <div class="us-item">
+        <p class="us-name">Kate Edwards</p>
+        <p class="us-roles">U/S Maggie · U/S Julia</p>
+      </div>
+      <div class="us-item">
+        <p class="us-name">Jack Gray</p>
+        <p class="us-roles">U/S Tito · U/S Saunders</p>
+      </div>
+      <div class="us-item">
+        <p class="us-name">Lucy Perez</p>
+        <p class="us-roles">U/S Maria · U/S Diana</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Creative Team ── -->
+<section>
+  <div class="container">
+    <p class="section-label">Creative Team</p>
+    <div class="team-grid">
+      <div class="team-item">
+        <p class="role-label">Direction</p>
+        <p class="name">Blake Hamman</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Set Design</p>
+        <p class="name">Peter J. Photos</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Lighting Design</p>
+        <p class="name">Jorge Rebolledo</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Costume Design</p>
+        <p class="name">Blake Hamman</p>
+        <p class="note">with Sara Brookes</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Production Photography</p>
+        <p class="name">Jessica Mewborne</p>
+        <p class="note">Mewborne Photography</p>
+      </div>
+      <div class="team-item">
+        <p class="role-label">Produced By</p>
+        <p class="name">La Bête Productions</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="page-footer">
+  <div class="brand">Blake <em>Hamman</em></div>
+  <div class="footer-links">
+    <a href="blake-hamman.html">Main Site</a>
+    <a href="blake-directing.html">Directing Portfolio</a>
+    <a href="blake-hamman.html#acting">Acting Credits</a>
+    <a href="blake-hamman.html#contact">Contact</a>
+  </div>
+  <p class="footer-copy">Director · Actor · Producer · San Antonio, TX</p>
+</footer>
+
+</body>
+</html>
